@@ -9,7 +9,7 @@ const { t } = useI18n();
 
 const examples = computed(() => [
   {
-    category: 'Map Control',
+    category: t('sidebar.categories.mapControl'),
     items: [
       {
         title: t('examples.basicMap.title'),
@@ -20,21 +20,41 @@ const examples = computed(() => [
         title: t('examples.mapEvents.title'),
         path: '/examples/map-events',
         description: t('examples.mapEvents.description')
+      },
+      {
+        title: t('examples.cameraControl.title'),
+        path: '/examples/camera-control',
+        description: t('examples.cameraControl.description')
       }
     ]
   },
   {
-    category: 'Layers',
+    category: t('sidebar.categories.layers'),
     items: [
       {
         title: t('examples.tileLayer.title'),
         path: '/examples/tile-layer',
         description: t('examples.tileLayer.description')
+      },
+      {
+        title: t('examples.layerManagement.title'),
+        path: '/examples/layer-management',
+        description: t('examples.layerManagement.description')
+      },
+      {
+        title: t('examples.layerOperations.title'),
+        path: '/examples/layer-operations',
+        description: t('examples.layerOperations.description')
+      },
+      {
+        title: t('examples.layerProperties.title'),
+        path: '/examples/layer-properties',
+        description: t('examples.layerProperties.description')
       }
     ]
   },
   {
-    category: 'Geometry & Interaction',
+    category: t('sidebar.categories.geometryInteraction'),
     items: [
       {
         title: t('examples.markerExample.title'),
@@ -42,14 +62,59 @@ const examples = computed(() => [
         description: t('examples.markerExample.description')
       },
       {
+        title: t('examples.markerStyles.title'),
+        path: '/examples/marker-styles',
+        description: t('examples.markerStyles.description')
+      },
+      {
         title: t('examples.vectorShapes.title'),
         path: '/examples/vector-shapes',
         description: t('examples.vectorShapes.description')
       },
       {
+        title: t('examples.geometryStyles.title'),
+        path: '/examples/geometry-styles',
+        description: t('examples.geometryStyles.description')
+      },
+      {
         title: t('examples.drawTool.title'),
         path: '/examples/draw-tool',
         description: t('examples.drawTool.description')
+      },
+      {
+        title: t('examples.uiComponents.title'),
+        path: '/examples/ui-components',
+        description: t('examples.uiComponents.description')
+      },
+      {
+        title: t('examples.labelExample.title'),
+        path: '/examples/label-example',
+        description: t('examples.labelExample.description')
+      }
+    ]
+  },
+  {
+    category: t('sidebar.categories.advancedVisuals'),
+    items: [
+      {
+        title: t('examples.pipelineNetwork.title'),
+        path: '/examples/pipeline-network',
+        description: t('examples.pipelineNetwork.description')
+      },
+      {
+        title: t('examples.modelLayer.title'),
+        path: '/examples/model-layer',
+        description: t('examples.modelLayer.description')
+      },
+      {
+        title: t('examples.realisticWater.title'),
+        path: '/examples/realistic-water',
+        description: t('examples.realisticWater.description')
+      },
+      {
+        title: t('examples.volumetricClouds.title'),
+        path: '/examples/volumetric-clouds',
+        description: t('examples.volumetricClouds.description')
       }
     ]
   }

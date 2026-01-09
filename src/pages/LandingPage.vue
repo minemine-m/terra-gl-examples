@@ -50,6 +50,7 @@ const initThree = () => {
   controls.enableDamping = true;
   controls.dampingFactor = 0.05;
   controls.enableZoom = false;
+  controls.enablePan = false;
   controls.autoRotate = true;
   controls.autoRotateSpeed = 0.5;
 
@@ -327,7 +328,7 @@ onBeforeUnmount(() => {
         {{ t('home.description') }}
       </p>
       <div class="animate-fade-in-up delay-300 pointer-events-auto">
-        <router-link to="/gallery" class="inline-block px-10 py-4 bg-blue-600 hover:bg-blue-500 rounded-full font-bold text-lg text-white transition-all transform hover:scale-105 shadow-lg shadow-blue-900/50">
+        <router-link to="/examples/basic-map" class="inline-block px-10 py-4 bg-blue-600 hover:bg-blue-500 rounded-full font-bold text-lg text-white transition-all transform hover:scale-105 shadow-lg shadow-blue-900/50">
           {{ t('home.getStarted') }}
         </router-link>
       </div>

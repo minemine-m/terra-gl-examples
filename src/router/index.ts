@@ -9,6 +9,18 @@ import TileLayerExampleWrapper from '../examples/TileLayerExampleWrapper.vue'
 import MarkerExampleWrapper from '../examples/MarkerExampleWrapper.vue'
 import VectorShapesWrapper from '../examples/VectorShapesWrapper.vue'
 import DrawToolExampleWrapper from '../examples/DrawToolExampleWrapper.vue'
+import CameraControlWrapper from '../examples/CameraControlWrapper.vue'
+import LayerManagementWrapper from '../examples/LayerManagementWrapper.vue'
+import UIComponentsWrapper from '../examples/UIComponentsWrapper.vue'
+import PipelineNetworkWrapper from '../examples/PipelineNetworkWrapper.vue'
+import RealisticWaterWrapper from '../examples/RealisticWaterWrapper.vue'
+import VolumetricCloudsWrapper from '../examples/VolumetricCloudsWrapper.vue'
+import MarkerStylesExampleWrapper from '../examples/MarkerStylesExampleWrapper.vue'
+import GeometryStylesExampleWrapper from '../examples/GeometryStylesExampleWrapper.vue'
+import ModelLayerExampleWrapper from '../examples/ModelLayerExampleWrapper.vue'
+import LayerOperationsExampleWrapper from '../examples/LayerOperationsExampleWrapper.vue'
+import LayerPropertiesExampleWrapper from '../examples/LayerPropertiesExampleWrapper.vue'
+import LabelExampleWrapper from '../examples/LabelExampleWrapper.vue'
 
 const routes = [
   {
@@ -19,7 +31,8 @@ const routes = [
   {
     path: '/gallery',
     name: 'gallery',
-    component: ExamplesGallery
+    redirect: '/examples/basic-map'
+    // component: ExamplesGallery
   },
   {
     path: '/examples',
@@ -59,6 +72,66 @@ const routes = [
         path: 'draw-tool',
         name: 'draw-tool',
         component: DrawToolExampleWrapper
+      },
+      {
+        path: 'camera-control',
+        name: 'camera-control',
+        component: CameraControlWrapper
+      },
+      {
+        path: 'layer-management',
+        name: 'layer-management',
+        component: LayerManagementWrapper
+      },
+      {
+        path: 'ui-components',
+        name: 'ui-components',
+        component: UIComponentsWrapper
+      },
+      {
+        path: 'pipeline-network',
+        name: 'pipeline-network',
+        component: PipelineNetworkWrapper
+      },
+      {
+        path: 'realistic-water',
+        name: 'realistic-water',
+        component: RealisticWaterWrapper
+      },
+      {
+        path: 'volumetric-clouds',
+        name: 'volumetric-clouds',
+        component: VolumetricCloudsWrapper
+      },
+      {
+        path: 'marker-styles',
+        name: 'marker-styles',
+        component: MarkerStylesExampleWrapper
+      },
+      {
+        path: 'geometry-styles',
+        name: 'geometry-styles',
+        component: GeometryStylesExampleWrapper
+      },
+      {
+        path: 'model-layer',
+        name: 'model-layer',
+        component: ModelLayerExampleWrapper
+      },
+      {
+        path: 'layer-operations',
+        name: 'layer-operations',
+        component: LayerOperationsExampleWrapper
+      },
+      {
+        path: 'layer-properties',
+        name: 'layer-properties',
+        component: LayerPropertiesExampleWrapper
+      },
+      {
+        path: 'label-example',
+        name: 'label-example',
+        component: LabelExampleWrapper
       }
     ]
   }

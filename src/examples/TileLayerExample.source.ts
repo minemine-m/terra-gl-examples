@@ -78,12 +78,23 @@ onMounted(() => {
   map = new terra.Map(mapContainer.value, {
     center: [116.405467, 39.907761, 2000],
     zoom: 12,
+    viewer: {
+      antialias: true,
+      polarDeg: 70,
+      azimuthDeg: 0,
+      skybox: {
+        path: "/image/skyboxall/onemap/",
+        files: ["posx.jpg", "negx.jpg", "posy.jpg", "negy.jpg", "posz.jpg", "negz.jpg"],
+        defaultColor: '#121E3A'
+      }
+    },
     basemap: {
-      Baselayers: [currentLayer],
-      minLevel: 2,
-      maxLevel: 19
-    }
-  });
+        Baselayers: [currentLayer],
+        minLevel: 2,
+        maxLevel: 19
+      }
+    });
+
 });
 
 onBeforeUnmount(() => {

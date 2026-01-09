@@ -36,6 +36,11 @@ onMounted(() => {
       antialias: true,
       polarDeg: 70,
       azimuthDeg: 0,
+      skybox: {
+        path: "/image/skyboxall/onemap/",
+        files: ["posx.jpg", "negx.jpg", "posy.jpg", "negy.jpg", "posz.jpg", "negz.jpg"],
+        defaultColor: '#121E3A'
+      }
     },
     basemap: {
       Baselayers: [baseLayer],
@@ -43,6 +48,8 @@ onMounted(() => {
       maxLevel: 19
     }
   });
+
+  
 
   map.on('click', (e: any) => {
     const { lng, lat } = e.lnglat || {};

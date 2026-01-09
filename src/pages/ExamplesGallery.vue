@@ -18,6 +18,13 @@ const examples = computed(() => [
         image: 'https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=600&auto=format&fit=crop'
       },
       {
+        id: 'camera-control',
+        title: t('examples.cameraControl.title'),
+        description: t('examples.cameraControl.description'),
+        path: '/examples/camera-control',
+        image: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=600&auto=format&fit=crop'
+      },
+      {
         id: 'map-events',
         title: t('examples.mapEvents.title'),
         description: t('examples.mapEvents.description'),
@@ -36,6 +43,27 @@ const examples = computed(() => [
         description: t('examples.tileLayer.description'),
         path: '/examples/tile-layer',
         image: 'https://images.unsplash.com/photo-1535957996774-c955885dbbd8?q=80&w=600&auto=format&fit=crop'
+      },
+      {
+        id: 'layer-management',
+        title: t('examples.layerManagement.title'),
+        description: t('examples.layerManagement.description'),
+        path: '/examples/layer-management',
+        image: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=600&auto=format&fit=crop'
+      },
+      {
+        id: 'layer-operations',
+        title: t('examples.layerOperations.title'),
+        description: t('examples.layerOperations.description'),
+        path: '/examples/layer-operations',
+        image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=600&auto=format&fit=crop'
+      },
+      {
+        id: 'layer-properties',
+        title: t('examples.layerProperties.title'),
+        description: t('examples.layerProperties.description'),
+        path: '/examples/layer-properties',
+        image: 'https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?q=80&w=600&auto=format&fit=crop'
       }
     ]
   },
@@ -43,6 +71,13 @@ const examples = computed(() => [
     category: 'geometry',
     title: 'Geometry & Interaction',
     items: [
+      {
+        id: 'ui-components',
+        title: t('examples.uiComponents.title'),
+        description: t('examples.uiComponents.description'),
+        path: '/examples/ui-components',
+        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop'
+      },
       {
         id: 'marker-example',
         title: t('examples.markerExample.title'),
@@ -63,6 +98,54 @@ const examples = computed(() => [
         description: t('examples.drawTool.description'),
         path: '/examples/draw-tool',
         image: 'https://images.unsplash.com/photo-1635326444826-06c8f84991a9?q=80&w=600&auto=format&fit=crop'
+      },
+      {
+        id: 'marker-styles',
+        title: t('examples.markerStyles.title'),
+        description: t('examples.markerStyles.description'),
+        path: '/examples/marker-styles',
+        image: 'https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?q=80&w=600&auto=format&fit=crop'
+      },
+      {
+        id: 'geometry-styles',
+        title: t('examples.geometryStyles.title'),
+        description: t('examples.geometryStyles.description'),
+        path: '/examples/geometry-styles',
+        image: 'https://images.unsplash.com/photo-1555436169-20e93ee0a713?q=80&w=600&auto=format&fit=crop'
+      }
+    ]
+  },
+  {
+    category: 'advanced',
+    title: 'Advanced Visuals',
+    items: [
+      {
+        id: 'pipeline-network',
+        title: t('examples.pipelineNetwork.title'),
+        description: t('examples.pipelineNetwork.description'),
+        path: '/examples/pipeline-network',
+        image: 'https://images.unsplash.com/photo-1605647540924-852290f6b0d5?q=80&w=600&auto=format&fit=crop'
+      },
+      {
+        id: 'realistic-water',
+        title: t('examples.realisticWater.title'),
+        description: t('examples.realisticWater.description'),
+        path: '/examples/realistic-water',
+        image: 'https://images.unsplash.com/photo-1505144808419-1957a94ca61e?q=80&w=600&auto=format&fit=crop'
+      },
+      {
+        id: 'volumetric-clouds',
+        title: t('examples.volumetricClouds.title'),
+        description: t('examples.volumetricClouds.description'),
+        path: '/examples/volumetric-clouds',
+        image: 'https://images.unsplash.com/photo-1534088568595-a066f410bcda?q=80&w=600&auto=format&fit=crop'
+      },
+      {
+        id: 'model-layer',
+        title: t('examples.modelLayer.title'),
+        description: t('examples.modelLayer.description'),
+        path: '/examples/model-layer',
+        image: 'https://images.unsplash.com/photo-1615840287214-7ff58ee0489b?q=80&w=600&auto=format&fit=crop'
       }
     ]
   }

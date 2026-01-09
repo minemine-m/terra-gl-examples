@@ -80,8 +80,11 @@ onMounted(() => {
       logarithmicDepthBuffer: true,
       polarDeg: 70,
       azimuthDeg: 0,
-      // Add a simple skybox or background color
-      // background: '#87CEEB' 
+      skybox: {
+        path: "/image/skyboxall/onemap/",
+        files: ["posx.jpg", "negx.jpg", "posy.jpg", "negy.jpg", "posz.jpg", "negz.jpg"],
+        defaultColor: '#121E3A'
+      }
     },
     basemap: {
       Baselayers: [baseLayer],

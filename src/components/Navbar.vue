@@ -30,9 +30,9 @@ const isActive = (path: string) => route.path === path;
           {{ t('nav.home') }}
         </router-link>
         <router-link 
-          to="/gallery" 
+          to="/examples/basic-map" 
           class="text-sm font-medium transition-colors"
-          :class="isActive('/gallery') ? 'text-blue-400' : 'text-gray-300 hover:text-white'"
+          :class="isActive('/examples/basic-map') || isActive('/gallery') ? 'text-blue-400' : 'text-gray-300 hover:text-white'"
         >
           {{ t('nav.examples') }}
         </router-link>

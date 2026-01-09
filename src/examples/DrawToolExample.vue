@@ -34,12 +34,17 @@ onMounted(() => {
   });
 
   map = new terra.Map(mapContainer.value, {
-    center: [116.397428, 39.90923, 5000],
+    center: [116.397428, 39.90923, 2000],
     zoom: 14,
     viewer: {
       antialias: true,
       polarDeg: 70,
       azimuthDeg: 0,
+      skybox: {
+        path: "/image/skyboxall/onemap/",
+        files: ["posx.jpg", "negx.jpg", "posy.jpg", "negy.jpg", "posz.jpg", "negz.jpg"],
+        defaultColor: '#121E3A'
+      }
     },
     basemap: {
       Baselayers: [baseLayer],
