@@ -26,6 +26,42 @@ export default {
     basicMap: {
       title: '基础地图',
       description: '使用 OpenStreetMap 栅格瓦片的简单 2D 地图。'
+    },
+    mapEvents: {
+      title: '地图事件',
+      description: '监听并处理点击、双击、缩放、移动等地图交互事件。',
+      panelTitle: '事件日志',
+      placeholder: '与地图交互以查看事件...'
+    },
+    tileLayer: {
+      title: '瓦片图层切换',
+      description: '在不同的底图服务（暗色、亮色、卫星图）之间进行切换。',
+      panelTitle: '底图图层',
+      layers: {
+        dark: 'Carto 暗色',
+        light: 'Carto 亮色',
+        osm: 'OpenStreetMap',
+        satellite: 'ArcGIS 卫星图'
+      }
+    },
+    markerExample: {
+      title: '标记与弹窗',
+      description: '在地图上添加图标标记，并配置自定义样式的点击弹窗。'
+    },
+    vectorShapes: {
+      title: '矢量图形',
+      description: '绘制多边形和线要素，展示矢量图层的基本用法。'
+    },
+    drawTool: {
+      title: '绘制工具',
+      description: '交互式绘制点、线、面，并获取绘制结果。',
+      panelTitle: '绘制工具',
+      mode: {
+        polygon: '多边形',
+        line: '线',
+        point: '点'
+      },
+      clear: '清空全部'
     }
   },
   viewer: {

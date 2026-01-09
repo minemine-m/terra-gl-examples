@@ -8,15 +8,50 @@ const route = useRoute();
 const { t } = useI18n();
 
 const examples = computed(() => [
-  // {
-  //   title: t('examples.terrain3d.title'),
-  //   path: '/examples/terrain-3d',
-  //   description: t('examples.terrain3d.description')
-  // },
   {
-    title: t('examples.basicMap.title'),
-    path: '/examples/basic-map',
-    description: t('examples.basicMap.description')
+    category: 'Map Control',
+    items: [
+      {
+        title: t('examples.basicMap.title'),
+        path: '/examples/basic-map',
+        description: t('examples.basicMap.description')
+      },
+      {
+        title: t('examples.mapEvents.title'),
+        path: '/examples/map-events',
+        description: t('examples.mapEvents.description')
+      }
+    ]
+  },
+  {
+    category: 'Layers',
+    items: [
+      {
+        title: t('examples.tileLayer.title'),
+        path: '/examples/tile-layer',
+        description: t('examples.tileLayer.description')
+      }
+    ]
+  },
+  {
+    category: 'Geometry & Interaction',
+    items: [
+      {
+        title: t('examples.markerExample.title'),
+        path: '/examples/marker-example',
+        description: t('examples.markerExample.description')
+      },
+      {
+        title: t('examples.vectorShapes.title'),
+        path: '/examples/vector-shapes',
+        description: t('examples.vectorShapes.description')
+      },
+      {
+        title: t('examples.drawTool.title'),
+        path: '/examples/draw-tool',
+        description: t('examples.drawTool.description')
+      }
+    ]
   }
 ]);
 </script>
@@ -50,18 +85,22 @@ const examples = computed(() => [
         </router-link>
       </div>
 
-      <ul class="space-y-1 px-3">
-        <li v-for="example in examples" :key="example.path">
-          <router-link 
-            :to="example.path"
-            class="block px-4 py-3 rounded-lg transition-colors group"
-            :class="route.path === example.path ? 'bg-blue-600/20 text-blue-400 border border-blue-600/30' : 'text-gray-400 hover:bg-gray-700 hover:text-white'"
-          >
-            <div class="font-medium">{{ example.title }}</div>
-            <div class="text-xs mt-1 opacity-70 truncate" :title="example.description">{{ example.description }}</div>
-          </router-link>
-        </li>
-      </ul>
+      <div v-for="category in examples" :key="category.category" class="mb-4">
+        <div class="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+          {{ category.category }}
+        </div>
+        <ul class="space-y-1 px-3">
+          <li v-for="example in category.items" :key="example.path">
+            <router-link 
+              :to="example.path"
+              class="block px-4 py-2.5 rounded-lg transition-colors group"
+              :class="route.path === example.path ? 'bg-blue-600/20 text-blue-400 border border-blue-600/30' : 'text-gray-400 hover:bg-gray-700 hover:text-white'"
+            >
+              <div class="font-medium text-sm">{{ example.title }}</div>
+            </router-link>
+          </li>
+        </ul>
+      </div>
     </nav>
     
     <div class="p-4 border-t border-gray-700 text-xs text-gray-500 text-center">

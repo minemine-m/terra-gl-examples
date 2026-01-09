@@ -6,19 +6,65 @@ import Navbar from '../components/Navbar.vue';
 const { t } = useI18n();
 
 const examples = computed(() => [
-  // {
-  //   id: 'terrain-3d',
-  //   title: t('examples.terrain3d.title'),
-  //   description: t('examples.terrain3d.description'),
-  //   path: '/examples/terrain-3d',
-  //   image: 'https://images.unsplash.com/photo-1542224566-6e85f2e6772f?q=80&w=600&auto=format&fit=crop'
-  // },
   {
-    id: 'basic-map',
-    title: t('examples.basicMap.title'),
-    description: t('examples.basicMap.description'),
-    path: '/examples/basic-map',
-    image: 'https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=600&auto=format&fit=crop'
+    category: 'basic',
+    title: 'Map Control',
+    items: [
+      {
+        id: 'basic-map',
+        title: t('examples.basicMap.title'),
+        description: t('examples.basicMap.description'),
+        path: '/examples/basic-map',
+        image: 'https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=600&auto=format&fit=crop'
+      },
+      {
+        id: 'map-events',
+        title: t('examples.mapEvents.title'),
+        description: t('examples.mapEvents.description'),
+        path: '/examples/map-events',
+        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop'
+      }
+    ]
+  },
+  {
+    category: 'layer',
+    title: 'Layers',
+    items: [
+      {
+        id: 'tile-layer',
+        title: t('examples.tileLayer.title'),
+        description: t('examples.tileLayer.description'),
+        path: '/examples/tile-layer',
+        image: 'https://images.unsplash.com/photo-1535957996774-c955885dbbd8?q=80&w=600&auto=format&fit=crop'
+      }
+    ]
+  },
+  {
+    category: 'geometry',
+    title: 'Geometry & Interaction',
+    items: [
+      {
+        id: 'marker-example',
+        title: t('examples.markerExample.title'),
+        description: t('examples.markerExample.description'),
+        path: '/examples/marker-example',
+        image: 'https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?q=80&w=600&auto=format&fit=crop'
+      },
+      {
+        id: 'vector-shapes',
+        title: t('examples.vectorShapes.title'),
+        description: t('examples.vectorShapes.description'),
+        path: '/examples/vector-shapes',
+        image: 'https://images.unsplash.com/photo-1555436169-20e93ee0a713?q=80&w=600&auto=format&fit=crop'
+      },
+      {
+        id: 'draw-tool',
+        title: t('examples.drawTool.title'),
+        description: t('examples.drawTool.description'),
+        path: '/examples/draw-tool',
+        image: 'https://images.unsplash.com/photo-1635326444826-06c8f84991a9?q=80&w=600&auto=format&fit=crop'
+      }
+    ]
   }
 ]);
 </script>
@@ -40,39 +86,44 @@ const examples = computed(() => [
           {{ t('home.examplesSubtitle') }}
         </p>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-20">
-          <router-link 
-            v-for="example in examples" 
-            :key="example.id"
-            :to="example.path"
-            class="group bg-gray-800 rounded-2xl overflow-hidden border border-gray-700 hover:border-blue-500/50 transition-all hover:shadow-2xl hover:shadow-blue-900/20 hover:-translate-y-1"
-          >
-            <!-- Thumbnail -->
-            <div class="h-48 overflow-hidden relative">
-              <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent z-10 opacity-60"></div>
-              <img 
-                :src="example.image" 
-                :alt="example.title"
-                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
-              >
-            </div>
-            
-            <!-- Content -->
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors">
-                {{ example.title }}
-              </h3>
-              <p class="text-gray-400 text-sm line-clamp-3 mb-4">
-                {{ example.description }}
-              </p>
-              <div class="flex items-center text-blue-400 text-sm font-medium">
-                {{ t('home.viewExample') }}
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
+        <div v-for="category in examples" :key="category.category" class="mb-16">
+          <h3 class="text-2xl font-bold mb-6 text-blue-400 border-l-4 border-blue-500 pl-4">
+            {{ category.title }}
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <router-link 
+              v-for="example in category.items" 
+              :key="example.id"
+              :to="example.path"
+              class="group bg-gray-800 rounded-2xl overflow-hidden border border-gray-700 hover:border-blue-500/50 transition-all hover:shadow-2xl hover:shadow-blue-900/20 hover:-translate-y-1"
+            >
+              <!-- Thumbnail -->
+              <div class="h-48 overflow-hidden relative">
+                <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent z-10 opacity-60"></div>
+                <img 
+                  :src="example.image" 
+                  :alt="example.title"
+                  class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                >
               </div>
-            </div>
-          </router-link>
+              
+              <!-- Content -->
+              <div class="p-6">
+                <h3 class="text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors">
+                  {{ example.title }}
+                </h3>
+                <p class="text-gray-400 text-sm line-clamp-3 mb-4">
+                  {{ example.description }}
+                </p>
+                <div class="flex items-center text-blue-400 text-sm font-medium">
+                  {{ t('home.viewExample') }}
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </div>
+              </div>
+            </router-link>
+          </div>
         </div>
       </div>
       

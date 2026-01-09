@@ -4,6 +4,7 @@ import zh from './locales/zh'
 
 const i18n = createI18n({
   legacy: false, // Use Composition API mode
+  globalInjection: true, // Inject $t, $d, etc. globally
   locale: 'zh', // Default to Chinese as requested ("根据terra来", TerraGL seems to be Chinese-friendly/origin)
   fallbackLocale: 'en',
   messages: {
