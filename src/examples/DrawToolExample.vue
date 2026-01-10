@@ -91,9 +91,9 @@ onMounted(() => {
       
       if (feature instanceof terra.Polygon && polygonLayer) {
         feature.addTo(polygonLayer);
-      } else if ((feature instanceof terra.LineString || feature instanceof terra.Line) && lineLayer) {
+      } else if (feature instanceof terra.LineString && lineLayer) {
         feature.addTo(lineLayer);
-      } else if ((feature instanceof terra.Point || feature instanceof terra.Maker) && pointLayer) {
+      } else if ((feature instanceof terra.Maker) && pointLayer) {
         feature.addTo(pointLayer);
       } else {
         // Fallback: try to guess from geometry type string if available

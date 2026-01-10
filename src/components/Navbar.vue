@@ -10,7 +10,7 @@ const isActive = (path: string) => route.path === path;
 </script>
 
 <template>
-  <nav class="w-full px-8 py-6 flex justify-between items-center z-10" :class="$attrs.class || 'absolute top-0'">
+  <nav class="w-full px-4 md:px-8 py-4 md:py-6 flex flex-col md:flex-row justify-between items-center z-10 gap-4 md:gap-0" :class="$attrs.class || 'absolute top-0'">
     <!-- Logo -->
     <router-link to="/" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
       <img src="/favicon/favicon-32x32.png" alt="Terra-GL Logo" class="w-8 h-8" />
@@ -20,8 +20,8 @@ const isActive = (path: string) => route.path === path;
     </router-link>
 
     <!-- Navigation Links -->
-    <div class="flex items-center gap-8">
-      <div class="flex items-center gap-6 bg-gray-800/50 backdrop-blur px-6 py-2 rounded-full border border-gray-700/50">
+    <div class="flex items-center gap-4 md:gap-8">
+      <div class="flex items-center gap-4 md:gap-6 bg-gray-800/50 backdrop-blur px-4 md:px-6 py-2 rounded-full border border-gray-700/50">
         <router-link 
           to="/" 
           class="text-sm font-medium transition-colors"

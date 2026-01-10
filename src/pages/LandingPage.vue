@@ -316,19 +316,19 @@ onBeforeUnmount(() => {
     </div>
 
     <!-- Hero Section -->
-    <header class="flex-1 flex flex-col justify-center items-center relative px-8 text-center max-w-5xl mx-auto z-10 pointer-events-none">
+    <header class="flex-1 flex flex-col justify-center items-center relative px-4 md:px-8 text-center max-w-5xl mx-auto z-10 pointer-events-none">
       
       <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300 animate-fade-in-up drop-shadow-lg filter shadow-blue-500/50">
         {{ t('home.title') }}
       </h1>
-      <p class="text-2xl md:text-3xl font-light text-gray-100 mb-8 animate-fade-in-up delay-100 drop-shadow-md">
+      <p class="text-xl md:text-3xl font-light text-gray-100 mb-6 md:mb-8 animate-fade-in-up delay-100 drop-shadow-md">
         {{ t('home.subtitle') }}
       </p>
-      <p class="text-lg text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed animate-fade-in-up delay-200 drop-shadow-sm">
+      <p class="text-base md:text-lg text-gray-300 mb-8 md:mb-12 max-w-2xl mx-auto leading-relaxed animate-fade-in-up delay-200 drop-shadow-sm">
         {{ t('home.description') }}
       </p>
       <div class="animate-fade-in-up delay-300 pointer-events-auto">
-        <router-link to="/examples/basic-map" class="inline-block px-10 py-4 bg-blue-600 hover:bg-blue-500 rounded-full font-bold text-lg text-white transition-all transform hover:scale-105 shadow-lg shadow-blue-900/50">
+        <router-link to="/examples/basic-map" class="inline-block px-8 md:px-10 py-3 md:py-4 bg-blue-600 hover:bg-blue-500 rounded-full font-bold text-lg text-white transition-all transform hover:scale-105 shadow-lg shadow-blue-900/50">
           {{ t('home.getStarted') }}
         </router-link>
       </div>

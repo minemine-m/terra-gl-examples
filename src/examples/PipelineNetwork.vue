@@ -97,12 +97,13 @@ onMounted(() => {
          
          valve.on('click', () => {
              console.log('Valve clicked', feature.properties);
-             const info = new terra.InfoWindow({
-                 title: "Valve Info",
-                 content: `ID: ${feature.properties.id || 'N/A'}<br>Type: ${feature.properties.type || 'Unknown'}`
-             });
-             info.addTo(map!);
-             info.open(feature.geometry.coordinates);
+             // const info = new terra.InfoWindow({
+             //     title: "Valve Info",
+             //     content: `ID: ${feature.properties.id || 'N/A'}<br>Type: ${feature.properties.type || 'Unknown'}`
+             // });
+             // info.addTo(map!);
+             // info.open(feature.geometry.coordinates);
+             alert(`Valve Info\nID: ${feature.properties.id || 'N/A'}\nType: ${feature.properties.type || 'Unknown'}`);
          });
 
          valve.addTo(valveLayer);

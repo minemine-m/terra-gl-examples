@@ -94,15 +94,12 @@ export default {
       clear: '清空全部'
     },
     labelExample: {
-      title: '文本标注',
-      description: '在地图上显示和自定义文本标签。',
-      panelTitle: '标注控制',
-      content: '内容',
-      size: '大小',
-      textColor: '文本颜色',
-      bgColor: '背景颜色',
-      rotation: '旋转',
-      background: '背景框'
+      title: '标注样式',
+      description: '高级标注布局、避让与样式设置。'
+    },
+    zhengzhouNight: {
+      title: '郑州夜景',
+      description: '郑州市区夜景综合演示，包含地下管网、3D模型与动态光效。'
     },
     markerStyles: {
       title: '标记样式',

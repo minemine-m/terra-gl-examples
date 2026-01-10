@@ -99,7 +99,7 @@ onMounted(() => {
       url: 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Duck/glTF-Binary/Duck.glb',
       scale: controls.duckScale,
       rotate: [90, 0, 0]
-    },
+    } as any,
     userData: { name: 'Duck Model' }
   });
   duckModel.addTo(modelLayer);
@@ -114,7 +114,7 @@ onMounted(() => {
       url: 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/CesiumMan/glTF-Binary/CesiumMan.glb',
       scale: controls.manScale,
       rotate: [90, 0, 0]
-    }
+    } as any
   });
   cesiumMan.addTo(modelLayer);
 });

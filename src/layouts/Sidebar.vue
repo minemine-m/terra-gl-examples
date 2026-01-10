@@ -7,6 +7,20 @@ import LanguageSwitcher from '../components/LanguageSwitcher.vue';
 const route = useRoute();
 const { t } = useI18n();
 
+// Define props for controlling sidebar state
+const props = defineProps<{
+  isOpen?: boolean;
+}>();
+
+const emit = defineEmits<{
+  (e: 'close'): void;
+}>();
+
+// Close sidebar on route change (mobile)
+const closeSidebar = () => {
+  emit('close');
+};
+
 const examples = computed(() => [
   {
     category: t('sidebar.categories.mapControl'),
@@ -115,6 +129,11 @@ const examples = computed(() => [
         title: t('examples.volumetricClouds.title'),
         path: '/examples/volumetric-clouds',
         description: t('examples.volumetricClouds.description')
+      },
+      {
+        title: t('examples.zhengzhouNight.title'),
+        path: '/examples/zhengzhou-night',
+        description: t('examples.zhengzhouNight.description')
       }
     ]
   }
@@ -122,7 +141,18 @@ const examples = computed(() => [
 </script>
 
 <template>
-  <aside class="w-64 h-full bg-gray-800 border-r border-gray-700 flex flex-col">
+  <!-- Sidebar Backdrop (Mobile) -->
+  <div 
+    v-if="isOpen" 
+    class="md:hidden fixed inset-0 bg-black/50 z-30 backdrop-blur-sm"
+    @click="closeSidebar"
+  ></div>
+
+  <!-- Sidebar -->
+  <aside 
+    class="fixed md:static inset-y-0 left-0 w-64 h-full bg-gray-800 border-r border-gray-700 flex flex-col z-40 transform transition-transform duration-300 ease-in-out md:transform-none"
+    :class="isOpen ? 'translate-x-0' : '-translate-x-full'"
+  >
     <div class="p-4 border-b border-gray-700">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2 min-w-0">
@@ -132,7 +162,19 @@ const examples = computed(() => [
               <span class="truncate hidden sm:inline">{{ t('sidebar.subtitle') }}</span>
             </h1>
         </div>
-        <LanguageSwitcher class="flex-shrink-0" />
+        <!-- Close button for mobile inside sidebar -->
+        <button class="md:hidden text-gray-400 hover:text-white" @click="closeSidebar">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <!-- Language Switcher moved below title on mobile if needed, or kept here -->
+      <div class="mt-2 md:hidden">
+         <LanguageSwitcher />
+      </div>
+      <div class="hidden md:block absolute right-4 top-4">
+         <LanguageSwitcher />
       </div>
     </div>
     
@@ -142,6 +184,7 @@ const examples = computed(() => [
         <router-link 
           to="/" 
           class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition-colors"
+          @click="closeSidebar"
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -160,6 +203,7 @@ const examples = computed(() => [
               :to="example.path"
               class="block px-4 py-2.5 rounded-lg transition-colors group"
               :class="route.path === example.path ? 'bg-blue-600/20 text-blue-400 border border-blue-600/30' : 'text-gray-400 hover:bg-gray-700 hover:text-white'"
+              @click="closeSidebar"
             >
               <div class="font-medium text-sm">{{ example.title }}</div>
             </router-link>

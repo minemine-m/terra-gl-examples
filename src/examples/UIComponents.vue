@@ -40,14 +40,15 @@ onMounted(() => {
     }
   });
 
+  /*
   // 1. Add InfoWindow
-  const infoWindow = new terra.InfoWindow({
-      title: "Zhengzhou",
-      content: "<div style='padding:10px;'>Capital of Henan Province<br/>A major transportation hub.</div>",
-      minWidth: 200
-  });
-  infoWindow.addTo(map);
-  infoWindow.open([113.6253, 34.7466, 2000]);
+  // const infoWindow = new terra.InfoWindow({
+  //     title: "Zhengzhou",
+  //     content: "<div style='padding:10px;'>Capital of Henan Province<br/>A major transportation hub.</div>",
+  //     minWidth: 200
+  // });
+  // infoWindow.addTo(map);
+  // infoWindow.open([113.6253, 34.7466, 2000]);
 
   // 2. Add UIMarker (HTML Marker)
   const markerEl = document.createElement('div');
@@ -59,11 +60,13 @@ onMounted(() => {
       alert('You clicked the custom marker!');
   };
 
-  const uiMarker = new terra.UIMarker([113.65, 34.75, 2000], {
-      content: markerEl,
-      alignment: 'bottom'
-  });
-  uiMarker.addTo(map);
+  // const uiMarker = new terra.UIMarker([113.65, 34.75, 2000], {
+  //     content: markerEl,
+  //     alignment: 'bottom'
+  // });
+  // uiMarker.addTo(map);
+  */
+  console.log("UI Components (InfoWindow, UIMarker) are temporarily disabled due to API changes.");
   
 });
 

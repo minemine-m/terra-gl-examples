@@ -113,7 +113,7 @@ onMounted(() => {
       size: 20,
       outlineColor: '#ffffff',
       outlineWidth: 2
-    },
+    } as any,
     userData: { name: 'Circle Marker' }
   });
   circleMarker.setInfoWindow({ title: 'Circle Marker', content: 'This is a vector circle marker.' });

@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import MainLayout from '../layouts/MainLayout.vue'
 import LandingPage from '../pages/LandingPage.vue'
 import ExamplesGallery from '../pages/ExamplesGallery.vue'
@@ -21,8 +21,9 @@ import ModelLayerExampleWrapper from '../examples/ModelLayerExampleWrapper.vue'
 import LayerOperationsExampleWrapper from '../examples/LayerOperationsExampleWrapper.vue'
 import LayerPropertiesExampleWrapper from '../examples/LayerPropertiesExampleWrapper.vue'
 import LabelExampleWrapper from '../examples/LabelExampleWrapper.vue'
+import ZhengzhouNightWrapper from '../examples/ZhengzhouNightWrapper.vue'
 
-const routes = [
+const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'home',
@@ -30,7 +31,7 @@ const routes = [
   },
   {
     path: '/gallery',
-    name: 'gallery',
+    // name: 'gallery',
     redirect: '/examples/basic-map'
     // component: ExamplesGallery
   },
@@ -132,6 +133,11 @@ const routes = [
         path: 'label-example',
         name: 'label-example',
         component: LabelExampleWrapper
+      },
+      {
+        path: 'zhengzhou-night',
+        name: 'zhengzhou-night',
+        component: ZhengzhouNightWrapper
       }
     ]
   }

@@ -152,6 +152,10 @@ export default {
       panelTitle: 'Layer Properties',
       opacity: 'Opacity',
       altitude: 'Altitude'
+    },
+    zhengzhouNight: {
+      title: 'Zhengzhou Night',
+      description: 'A comprehensive demo of Zhengzhou city night scene with pipelines, models and lighting.'
     }
   },
   viewer: {

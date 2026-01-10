@@ -7,7 +7,8 @@ const { t } = useI18n();
 const mapContainer = ref<HTMLElement | null>(null);
 let map: terra.Map | null = null;
 let testLayer: terra.PolygonLayer | null = null;
-// ... (rest of the script)opacity = ref(0.8);
+
+const opacity = ref(0.8);
 const altitude = ref(100);
 
 watch(opacity, (val) => {

@@ -8,7 +8,7 @@ const mapContainer = ref<HTMLElement | null>(null);
 let map: terra.Map | null = null;
 
 const layerCount = ref(0);
-// ... (rest of the script)logs = ref<string[]>([]);
+const logs = ref<string[]>([]);
 
 const log = (msg: string) => {
   logs.value.unshift(`${new Date().toLocaleTimeString()} - ${msg}`);

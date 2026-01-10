@@ -47,7 +47,7 @@ const updateLabelStyle = () => {
     screenSpaceSize: controls.fontSize,
     rotation: controls.rotation,
     pixelOffset: [0, -30] // Offset to avoid covering the point
-  });
+  } as any);
 };
 
 onMounted(() => {
@@ -113,7 +113,7 @@ onMounted(() => {
       roundRectRadius: 5,
       screenSpaceSize: controls.fontSize,
       pixelOffset: [0, -30]
-    }
+    } as any
   });
   
   currentLabel.addTo(labelLayer);
