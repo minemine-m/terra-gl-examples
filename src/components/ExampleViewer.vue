@@ -2,11 +2,13 @@
 import { ref, computed } from 'vue';
 import hljs from 'highlight.js/lib/core';
 import xml from 'highlight.js/lib/languages/xml';
+import javascript from 'highlight.js/lib/languages/javascript';
 import 'highlight.js/styles/atom-one-dark.css';
 import { useI18n } from 'vue-i18n';
 
 // Register languages
 hljs.registerLanguage('xml', xml);
+hljs.registerLanguage('javascript', javascript);
 
 const props = defineProps<{
   code: string;

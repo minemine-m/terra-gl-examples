@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pipeline Network</title>
+    <style>
+        html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #111; }
+        #map-container { width: 100%; height: 100%; }
+        .control-panel {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(30, 30, 30, 0.9);
+            padding: 15px;
+            border-radius: 8px;
+            color: white;
+            font-family: sans-serif;
+            border: 1px solid #444;
+            min-width: 200px;
+            pointer-events: none; /* Let clicks pass through if just displaying info */
+        }
+        .panel-title { margin: 0 0 10px 0; font-size: 16px; font-weight: bold; color: #4facfe; }
+        .legend-item { display: flex; align-items: center; margin-bottom: 5px; font-size: 14px; }
+        .color-box { width: 15px; height: 15px; margin-right: 10px; border-radius: 3px; }
+    </style>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.150.1/build/three.module.js",
+                "@terra.gl/core": "https://unpkg.com/@terra.gl/core/dist/terra.gl.es.js"
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="map-container"></div>
+    <div class="control-panel">
+        <h3 class="panel-title">Pipeline Network</h3>
+        <div class="legend-item">
+            <div class="color-box" style="background-color: #0068F8;"></div>
+            <span>Pipeline</span>
+        </div>
+        <div class="legend-item">
+            <div class="color-box" style="background-color: #ffffff; border: 2px solid #000;"></div>
+            <span>Valve</span>
+        </div>
+        <div style="margin-top: 10px; font-size: 12px; color: #aaa;">
+            Data loaded from GeoJSON
+        </div>
+    </div>
+
+    <script type="module">
+        import * as terra from '@terra.gl/core';
+
+        // 1. Initialize Map
+        const osmSource = new terra.WMTSSource({
+            urlTemplate: "https://basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
+            minLevel: 0,
+            maxLevel: 19,
+            attribution: "Dark"
+        });
+        
+        const baseLayer = new terra.WMTSTileLayer("base-layer", {
+            source: osmSource,
+            projection: terra.ProjectFactory.createFromID("3857", 0),
+            layerName: "dark-layer",
+            style: "default",
+            matrixSet: "EPSG:3857"
+        });
+
+        const map = new terra.Map(document.getElementById('map-container'), {
+            center: [113.5517, 34.7931, 1000],
+            zoom: 15,
+            viewer: {
+                antialias: true,
+                skybox: {
+                    path: "/image/skyboxall/onemap/",
+                    files: ["posx.jpg", "negx.jpg", "posy.jpg", "negy.jpg", "posz.jpg", "negz.jpg"],
+                    defaultColor: '#121E3A'
+                }
+            },
+            basemap: {
+                Baselayers: [baseLayer],
+                minLevel: 2,
+                maxLevel: 19
+            }
+        });
+
+        // 2. Add Pipeline Layer (Lines)
+        const pipeLayer = new terra.LineLayer('pipe-layer');
+        map.addLayer(pipeLayer);
+
+        fetch('/geojson/public.gsgx_pipe.json')
+            .then(res => res.json())
+            .then(data => {
+                data.features.forEach((feature) => {
+                    // Fix coordinates: Add Z=-1 to prevent clipping with ground
+                    if (feature.geometry && feature.geometry.coordinates) {
+                        const injectZ = (coords) => {
+                            if (typeof coords[0] === 'number') return [...coords, -1]; // [x, y, z]
+                            return coords.map(injectZ);
+                        };
+                        feature.geometry.coordinates = injectZ(feature.geometry.coordinates);
+                    }
+
+                    const pipe = new terra.MultiLineString({
+                        geometry: feature.geometry,
+                        style: {
+                            type: 'basic-line',
+                            color: '#0068F8', // Blue
+                            width: 3
+                        }
+                    });
+                    pipe.addTo(pipeLayer);
+                });
+            })
+            .catch(err => console.error("Error loading pipe data:", err));
+
+        // 3. Add Valve Layer (Points)
+        const valveLayer = new terra.PointLayer('valve-layer', { collision: true });
+        map.addLayer(valveLayer);
+
+        fetch('/geojson/public.gsss_valve.json')
+            .then(res => res.json())
+            .then(data => {
+                data.features.forEach((feature) => {
+                    if (feature.geometry && feature.geometry.coordinates) {
+                        feature.geometry.coordinates = [...feature.geometry.coordinates, 1];
+                    }
+                    
+                    const valve = new terra.Maker({
+                        geometry: feature.geometry,
+                        style: {
+                            type: 'icon-point',
+                            url: '/image/point/fxd.png', // Using available icon
+                            size: [24, 24],
+                            anchor: [0.5, 0.5],
+                            sizeAttenuation: false
+                        },
+                        userData: feature.properties
+                    });
+                    
+                    valve.on('click', () => {
+                        console.log('Valve clicked', feature.properties);
+                        const info = new terra.InfoWindow({
+                            title: "Valve Info",
+                            content: \

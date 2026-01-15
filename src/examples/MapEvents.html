@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terra-GL Map Events</title>
+    <style>
+        body { margin: 0; padding: 0; overflow: hidden; font-family: sans-serif; }
+        #map { width: 100vw; height: 100vh; background-color: #111827; }
+        
+        /* Event Logs Panel */
+        #log-panel {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 20rem;
+            max-height: 500px;
+            background-color: rgba(31, 41, 55, 0.9); /* bg-gray-800 */
+            backdrop-filter: blur(4px);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            color: white;
+            border: 1px solid rgb(55, 65, 81); /* border-gray-700 */
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 1.125rem;
+            border-bottom: 1px solid rgb(75, 85, 99);
+            padding-bottom: 0.5rem;
+        }
+
+        .log-container {
+            flex: 1;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: rgb(209, 213, 219); /* text-gray-300 */
+        }
+
+        .log-entry {
+            margin-bottom: 0.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <!-- Log Panel -->
+    <div id="log-panel">
+        <div class="panel-title">Event Logs</div>
+        <div id="logs" class="log-container"></div>
+    </div>
+
+    <!-- Import Map -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.171.0/build/three.module.js",
+            "@terra.gl/core": "https://unpkg.com/@terra.gl/core@0.0.1-alpha.35/dist/index.js"
+        }
+    }
+    </script>
+
+    <script type="module">
+        import * as terra from '@terra.gl/core';
+
+        const logContainer = document.getElementById('logs');
+
+        function addLog(msg) {
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.textContent = \

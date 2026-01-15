@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@highlightjs/vue-plugin": "^2.1.0",
-    "@terra.gl/core": "^0.0.1-alpha.35",
+    "@terra.gl/core": "^0.0.1-alpha.47",
     "clsx": "^2.1.1",
     "highlight.js": "^11.11.1",
     "lucide-vue-next": "^0.511.0",

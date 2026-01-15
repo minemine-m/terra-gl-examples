@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volumetric Clouds</title>
+    <style>
+        html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #111; }
+        #map-container { width: 100%; height: 100%; }
+        .control-panel {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(30, 30, 30, 0.9);
+            padding: 15px;
+            border-radius: 8px;
+            color: white;
+            font-family: sans-serif;
+            border: 1px solid #444;
+            min-width: 200px;
+        }
+        .panel-title { margin: 0 0 10px 0; font-size: 16px; font-weight: bold; color: #4facfe; }
+        .info-text { font-size: 14px; color: #ddd; line-height: 1.5; }
+    </style>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.150.1/build/three.module.js",
+                "@terra.gl/core": "https://unpkg.com/@terra.gl/core/dist/terra.gl.es.js"
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="map-container"></div>
+    <div class="control-panel">
+        <h3 class="panel-title">Volumetric Clouds</h3>
+        <div class="info-text">
+            Procedural volumetric clouds using particle system.
+            <br><br>
+            Count: 20 Random Clouds
+        </div>
+    </div>
+
+    <script type="module">
+        import * as terra from '@terra.gl/core';
+
+        const osmSource = new terra.WMTSSource({
+            urlTemplate: "https://basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
+            minLevel: 0,
+            maxLevel: 19,
+            attribution: "Dark"
+        });
+        const baseLayer = new terra.WMTSTileLayer("base-layer", {
+            source: osmSource,
+            projection: terra.ProjectFactory.createFromID("3857", 0),
+            layerName: "dark-layer",
+            style: "default",
+            matrixSet: "EPSG:3857"
+        });
+
+        const map = new terra.Map(document.getElementById('map-container'), {
+            center: [113.5517, 34.7931, 2000],
+            zoom: 14,
+            viewer: {
+                antialias: true,
+                skybox: {
+                    path: "/image/skyboxall/onemap/",
+                    files: ["posx.jpg", "negx.jpg", "posy.jpg", "negy.jpg", "posz.jpg", "negz.jpg"],
+                    defaultColor: '#121E3A'
+                }
+            },
+            basemap: {
+                Baselayers: [baseLayer],
+                minLevel: 2,
+                maxLevel: 19
+            }
+        });
+
+        // Clouds Layer
+        const cloudsLayer = new terra.CloudsLayer('clouds-layer', { 
+            texture: '/image/cloud.png', 
+            isSceneLayer: true 
+        });
+        map.addLayer(cloudsLayer);
+
+        // Add random clouds
+        for(let i=0; i<20; i++) {
+            const lat = 34.7931 + (Math.random() - 0.5) * 0.05;
+            const lng = 113.5517 + (Math.random() - 0.5) * 0.05;
+            const height = 1000 + Math.random() * 500;
+
+            const cloud = new terra.ICloud({
+                geometry: {
+                    type: "Point",
+                    coordinates: [lng, lat, height]
+                },
+                style: {
+                    type: 'cloud',
+                    hexcolor: '#FFFFFF',
+                    growth: 14,
+                    segments: 90,
+                    speed: 0.2,
+                    opacity: 0.25,
+                    boundstext: { x: 50, y: 2, z: 30 }
+                }
+            });
+            cloud.addTo(cloudsLayer);
+        }
+
+    </script>
+</body>
+</html>

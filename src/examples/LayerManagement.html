@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terra-GL Layer Management</title>
+    <style>
+        body { margin: 0; padding: 0; overflow: hidden; font-family: sans-serif; }
+        #map { width: 100vw; height: 100vh; background-color: #111827; }
+        
+        /* Control Panel Styles */
+        #control-panel {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            width: 16rem;
+            background-color: rgba(31, 41, 55, 0.9); /* bg-gray-800 */
+            backdrop-filter: blur(4px);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            color: white;
+            border: 1px solid rgb(55, 65, 81); /* border-gray-700 */
+            z-index: 10;
+        }
+
+        .panel-title {
+            font-weight: bold;
+            margin-bottom: 0.75rem;
+            font-size: 1.125rem;
+            border-bottom: 1px solid rgb(75, 85, 99);
+            padding-bottom: 0.5rem;
+        }
+
+        .layer-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .layer-label {
+            color: rgb(209, 213, 219); /* text-gray-300 */
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .toggle-input {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        .toggle-bg {
+            width: 2.75rem; /* w-11 */
+            height: 1.5rem; /* h-6 */
+            background-color: rgb(75, 85, 99); /* bg-gray-600 */
+            border-radius: 9999px;
+            position: relative;
+            transition: background-color 0.2s;
+        }
+
+        .toggle-input:checked + .toggle-bg {
+            background-color: rgb(37, 99, 235); /* bg-blue-600 */
+        }
+
+        .toggle-dot {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 1.25rem; /* h-5 */
+            height: 1.25rem; /* w-5 */
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.2s;
+            border: 1px solid rgb(209, 213, 219);
+        }
+
+        .toggle-input:checked + .toggle-bg .toggle-dot {
+            transform: translateX(100%);
+            border-color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <!-- Control Panel -->
+    <div id="control-panel">
+        <div class="panel-title">Layer Management</div>
+        
+        <div class="layer-item">
+            <span class="layer-label">Dark Map</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="osm-toggle" class="toggle-input" checked>
+                <div class="toggle-bg">
+                    <div class="toggle-dot"></div>
+                </div>
+            </label>
+        </div>
+
+        <div class="layer-item">
+            <span class="layer-label">Satellite</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="satellite-toggle" class="toggle-input">
+                <div class="toggle-bg">
+                    <div class="toggle-dot"></div>
+                </div>
+            </label>
+        </div>
+    </div>
+
+    <!-- Import Map -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.171.0/build/three.module.js",
+            "@terra.gl/core": "https://unpkg.com/@terra.gl/core@0.0.1-alpha.35/dist/index.js"
+        }
+    }
+    </script>
+
+    <script type="module">
+        import * as terra from '@terra.gl/core';
+
+        // Initialize Map
+        const osmSource = new terra.WMTSSource({
+            urlTemplate: "https://basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
+            minLevel: 0,
+            maxLevel: 19,
+            attribution: "Dark"
+        });
+        
+        const osmLayer = new terra.WMTSTileLayer("osm-layer", {
+            source: osmSource,
+            projection: terra.ProjectFactory.createFromID("3857", 0),
+            layerName: "osm",
+            style: "default",
+            matrixSet: "EPSG:3857"
+        });
+
+        // Satellite Layer (ArcGIS)
+        const arcgisSource = new terra.ArcGisSource({
+            urlTemplate: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+            minLevel: 0,
+            maxLevel: 19,
+            attribution: "ArcGIS"
+        });
+        
+        const satelliteLayer = new terra.WMTSTileLayer("sat-layer", {
+            source: arcgisSource,
+            projection: terra.ProjectFactory.createFromID("3857", 0),
+            layerName: "satellite",
+            style: "default",
+            matrixSet: "EPSG:3857"
+        });
+        satelliteLayer.visible = false;
+
+        const map = new terra.Map('map', {
+            center: [113.6253, 34.7466, 2000],
+            zoom: 10,
+            viewer: {
+                antialias: true,
+                skybox: {
+                    path: "/image/skyboxall/onemap/",
+                    files: ["posx.jpg", "negx.jpg", "posy.jpg", "negy.jpg", "posz.jpg", "negz.jpg"],
+                    defaultColor: '#121E3A'
+                }
+            },
+            basemap: {
+                Baselayers: [satelliteLayer, osmLayer],
+                minLevel: 2,
+                maxLevel: 19
+            }
+        });
+
+        // Event Listeners
+        document.getElementById('osm-toggle').addEventListener('change', (e) => {
+            osmLayer.visible = e.target.checked;
+        });
+
+        document.getElementById('satellite-toggle').addEventListener('change', (e) => {
+            satelliteLayer.visible = e.target.checked;
+        });
+    </script>
+</body>
+</html>

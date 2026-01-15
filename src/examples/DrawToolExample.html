@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terra-GL Draw Tool</title>
+    <style>
+        body { margin: 0; padding: 0; overflow: hidden; font-family: sans-serif; }
+        #map { width: 100vw; height: 100vh; background-color: #242424; }
+        
+        #control-panel {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: rgba(31, 41, 55, 0.9);
+            backdrop-filter: blur(4px);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            color: white;
+            border: 1px solid rgb(55, 65, 81);
+            z-index: 10;
+        }
+
+        h3 { margin-top: 0; margin-bottom: 0.5rem; font-size: 1rem; }
+
+        .btn-group { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
+        
+        button {
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            border: 1px solid rgb(75, 85, 99);
+            background-color: rgb(55, 65, 81);
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        button:hover { background-color: rgb(75, 85, 99); }
+        button.active { background-color: rgb(37, 99, 235); border-color: rgb(37, 99, 235); }
+
+        .btn-clear { width: 100%; background-color: rgb(185, 28, 28); border-color: rgb(185, 28, 28); }
+        .btn-clear:hover { background-color: rgb(220, 38, 38); }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <div id="control-panel">
+        <h3>Draw Tool</h3>
+        <div class="btn-group">
+            <button onclick="setMode('polygon')" id="btn-polygon" class="active">Polygon</button>
+            <button onclick="setMode('line')" id="btn-line">Line</button>
+            <button onclick="setMode('point')" id="btn-point">Point</button>
+        </div>
+        <button onclick="clearAll()" class="btn-clear">Clear All</button>
+    </div>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.171.0/build/three.module.js",
+            "@terra.gl/core": "https://unpkg.com/@terra.gl/core@0.0.1-alpha.35/dist/index.js"
+        }
+    }
+    </script>
+
+    <script type="module">
+        import * as terra from '@terra.gl/core';
+
+        // 1. Initialize Map
+        const osmSource = new terra.WMTSSource({
+            urlTemplate: "https://basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
+            minLevel: 0,
+            maxLevel: 19,
+            attribution: "&copy; OpenStreetMap &copy; CARTO"
+        });
+
+        const baseLayer = new terra.WMTSTileLayer("base-layer", {
+            source: osmSource,
+            projection: terra.ProjectFactory.createFromID("3857", 0),
+            layerName: "dark-layer",
+            style: "default",
+            matrixSet: "EPSG:3857"
+        });
+
+        const map = new terra.Map(document.getElementById('map'), {
+            center: [116.397428, 39.90923, 2000],
+            zoom: 14,
+            viewer: {
+                antialias: true,
+                polarDeg: 70,
+                azimuthDeg: 0,
+                skybox: {
+                    path: "/image/skyboxall/onemap/",
+                    files: ["posx.jpg", "negx.jpg", "posy.jpg", "negy.jpg", "posz.jpg", "negz.jpg"],
+                    defaultColor: '#121E3A'
+                }
+            },
+            basemap: {
+                Baselayers: [baseLayer],
+                minLevel: 2,
+                maxLevel: 19
+            }
+        });
+
+        // 2. Initialize Result Layers
+        const polygonLayer = new terra.PolygonLayer('result-polygons', { altitude: 1 });
+        const lineLayer = new terra.LineLayer('result-lines', { altitude: 2 });
+        const pointLayer = new terra.PointLayer('result-points', { altitude: 3 });
+
+        map.addLayer(polygonLayer);
+        map.addLayer(lineLayer);
+        map.addLayer(pointLayer);
+
+        // 3. Initialize DrawTool
+        const drawTool = new terra.DrawTool({
+            mode: 'polygon',
+            geometryStyle: {
+                type: 'basic-polygon',
+                color: '#00ff00',
+                opacity: 0.5,
+                borderColor: '#FF0000',
+                borderWidth: 3,
+            }
+        });
+        
+        drawTool.addTo(map);
+
+        let currentMode = 'polygon';
+
+        drawTool.on("drawend", (e) => {
+            const feature = e.geometry;
+            if (feature) {
+                if (feature instanceof terra.Polygon) {
+                    feature.addTo(polygonLayer);
+                } else if (feature instanceof terra.LineString || feature instanceof terra.Line) {
+                    feature.addTo(lineLayer);
+                } else if (feature instanceof terra.Point || feature instanceof terra.Maker) {
+                    feature.addTo(pointLayer);
+                } else {
+                    // Fallback based on current mode
+                    if (currentMode === 'polygon') feature.addTo(polygonLayer);
+                    else if (currentMode === 'line') feature.addTo(lineLayer);
+                    else if (currentMode === 'point') feature.addTo(pointLayer);
+                }
+            }
+        });
+
+        // 4. UI Controls
+        window.setMode = (mode) => {
+            currentMode = mode;
+            drawTool.setMode(mode);
+
+            // Update button styles
+            document.querySelectorAll('.btn-group button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + mode).classList.add('active');
+            
+            // Set style based on mode
+            if (mode === 'polygon') {
+                drawTool.geometryStyle = {
+                    type: 'basic-polygon',
+                    color: '#00ff00',
+                    opacity: 0.5,
+                    borderColor: '#FF0000',
+                    borderWidth: 3,
+                };
+            } else if (mode === 'line') {
+                drawTool.geometryStyle = {
+                    type: 'basic-line',
+                    color: '#00FFFF',
+                    width: 4
+                };
+            } else if (mode === 'point') {
+                drawTool.geometryStyle = {
+                    type: 'basic-point',
+                    color: '#FFFF00',
+                    size: 10
+                };
+            }
+        };
+
+        window.clearAll = () => {
+            polygonLayer.clearLayers();
+            lineLayer.clearLayers();
+            pointLayer.clearLayers();
+        };
+    </script>
+</body>
+</html>

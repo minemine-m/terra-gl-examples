@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terra-GL Basic Map</title>
+    <style>
+        body { margin: 0; padding: 0; overflow: hidden; }
+        #map { width: 100vw; height: 100vh; background-color: #242424; }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <!-- Import Map for managing dependencies -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.171.0/build/three.module.js",
+            "@terra.gl/core": "https://unpkg.com/@terra.gl/core@0.0.1-alpha.35/dist/index.js"
+        }
+    }
+    </script>
+
+    <script type="module">
+        import * as terra from '@terra.gl/core';
+
+        // 1. Create Data Sources
+        const osmSource = new terra.WMTSSource({
+            urlTemplate: "https://basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
+            minLevel: 0,
+            maxLevel: 19,
+            attribution: "&copy; OpenStreetMap &copy; CARTO"
+        });
+
+        // 2. Create Layer
+        const baseLayer = new terra.WMTSTileLayer("base-layer", {
+            source: osmSource,
+            projection: terra.ProjectFactory.createFromID("3857", 0),
+            layerName: "dark-layer",
+            style: "default",
+            matrixSet: "EPSG:3857"
+        });
+
+        // 3. Initialize Map
+        const mapContainer = document.getElementById('map');
+        const map = new terra.Map(mapContainer, {
+            center: [113.6253, 34.7466, 2000], // Zhengzhou
+            zoom: 10,
+            polarDeg: 70,
+            azimuthDeg: 0,
+            viewer: {
+                antialias: true,
+                polarDeg: 70,
+                azimuthDeg: 0,
+                skybox: {
+                    path: "/image/skyboxall/onemap/",
+                    files: ["posx.jpg", "negx.jpg", "posy.jpg", "negy.jpg", "posz.jpg", "negz.jpg"],
+                    defaultColor: '#121E3A'
+                }
+            },
+            basemap: {
+                Baselayers: [baseLayer],
+                minLevel: 2,
+                maxLevel: 19
+            }
+        });
+    </script>
+</body>
+</html>

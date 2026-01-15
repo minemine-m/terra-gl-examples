@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terra-GL Marker Styles</title>
+    <style>
+        body { margin: 0; padding: 0; overflow: hidden; font-family: sans-serif; }
+        #map { width: 100vw; height: 100vh; background-color: #111827; }
+        
+        /* Control Panel Styles */
+        #control-panel {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 16rem;
+            background-color: rgba(31, 41, 55, 0.9); /* bg-gray-800 */
+            backdrop-filter: blur(4px);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            color: white;
+            border: 1px solid rgb(55, 65, 81); /* border-gray-700 */
+            z-index: 10;
+        }
+
+        .panel-title {
+            font-weight: bold;
+            margin-bottom: 1rem;
+            font-size: 1.125rem;
+            border-bottom: 1px solid rgb(75, 85, 99);
+            padding-bottom: 0.5rem;
+        }
+
+        .marker-group {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .marker-group:last-child { border-bottom: none; }
+
+        .marker-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: rgb(250, 204, 21); /* yellow-400 */
+            font-size: 0.875rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            border-radius: 0.25rem;
+            border: none;
+            cursor: pointer;
+            color: white;
+            transition: background-color 0.2s;
+        }
+
+        .btn-fly { background-color: #3b82f6; } /* blue-500 */
+        .btn-fly:hover { background-color: #2563eb; }
+
+        .btn-color { background-color: #10b981; } /* emerald-500 */
+        .btn-color:hover { background-color: #059669; }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <!-- Control Panel -->
+    <div id="control-panel">
+        <div class="panel-title">Marker Styles</div>
+        
+        <div class="marker-group">
+            <div class="marker-title">Icon Marker</div>
+            <div class="btn-group">
+                <button class="btn btn-fly" onclick="flyToMarker('icon')">Fly To</button>
+                <button class="btn btn-color" onclick="changeColor('icon')">Change Style</button>
+            </div>
+        </div>
+
+        <div class="marker-group">
+            <div class="marker-title">Circle Marker</div>
+            <div class="btn-group">
+                <button class="btn btn-fly" onclick="flyToMarker('circle')">Fly To</button>
+                <button class="btn btn-color" onclick="changeColor('circle')">Change Style</button>
+            </div>
+        </div>
+
+        <div class="marker-group">
+            <div class="marker-title">Blue Marker</div>
+            <div class="btn-group">
+                <button class="btn btn-fly" onclick="flyToMarker('blue')">Fly To</button>
+                <button class="btn btn-color" onclick="changeColor('blue')">Change Style</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Map -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.171.0/build/three.module.js",
+            "@terra.gl/core": "https://unpkg.com/@terra.gl/core@0.0.1-alpha.35/dist/index.js"
+        }
+    }
+    </script>
+
+    <script type="module">
+        import * as terra from '@terra.gl/core';
+
+        // Store markers for controls
+        const markers = {};
+
+        // Initialize Map
+        const osmSource = new terra.WMTSSource({
+            urlTemplate: "https://basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
+            minLevel: 0,
+            maxLevel: 19,
+            attribution: "&copy; OpenStreetMap &copy; CARTO"
+        });
+
+        const baseLayer = new terra.WMTSTileLayer("base-layer", {
+            source: osmSource,
+            projection: terra.ProjectFactory.createFromID("3857", 0),
+            layerName: "dark-layer",
+            style: "default",
+            matrixSet: "EPSG:3857"
+        });
+
+        const map = new terra.Map('map', {
+            center: [116.397428, 39.90923, 15000],
+            zoom: 12,
+            viewer: {
+                antialias: true,
+                polarDeg: 70,
+                azimuthDeg: 0,
+                skybox: {
+                    path: "/image/skyboxall/onemap/",
+                    files: ["posx.jpg", "negx.jpg", "posy.jpg", "negy.jpg", "posz.jpg", "negz.jpg"],
+                    defaultColor: '#121E3A'
+                }
+            },
+            basemap: {
+                Baselayers: [baseLayer],
+                minLevel: 2,
+                maxLevel: 19
+            }
+        });
+
+        const markerLayer = new terra.PointLayer('marker-layer');
+        map.addLayer(markerLayer);
+
+        // 1. Icon Point
+        const iconMarker = new terra.Maker({
+            geometry: { type: 'Point', coordinates: [116.35, 39.90] },
+            style: {
+                type: 'icon-point',
+                url: '/image/point/fxd.png',
+                size: [32, 32],
+                anchor: [0.5, 0.5]
+            },
+            userData: { name: 'Icon Marker' }
+        });
+        iconMarker.setInfoWindow({ title: 'Icon Marker', content: 'This is an image-based marker.' });
+        markers['icon'] = iconMarker;
+        
+        // 2. Basic Point (Circle)
+        const circleMarker = new terra.Maker({
+            geometry: { type: 'Point', coordinates: [116.40, 39.90] },
+            style: {
+                type: 'basic-point',
+                color: '#ff0000',
+                size: 20,
+                outlineColor: '#ffffff',
+                outlineWidth: 2
+            },
+            userData: { name: 'Circle Marker' }
+        });
+        circleMarker.setInfoWindow({ title: 'Circle Marker', content: 'This is a vector circle marker.' });
+        markers['circle'] = circleMarker;
+
+        // 3. Blue Point
+        const blueMarker = new terra.Maker({
+            geometry: { type: 'Point', coordinates: [116.45, 39.90] },
+            style: {
+                type: 'basic-point',
+                color: '#0000ff',
+                size: 15,
+                opacity: 0.8
+            },
+            userData: { name: 'Blue Marker' }
+        });
+        blueMarker.setInfoWindow({ title: 'Blue Marker', content: 'Another vector marker style.' });
+        markers['blue'] = blueMarker;
+
+        iconMarker.addTo(markerLayer);
+        circleMarker.addTo(markerLayer);
+        blueMarker.addTo(markerLayer);
+
+        // Expose functions for buttons
+        window.flyToMarker = (key) => {
+            if (!markers[key]) return;
+            const coords = markers[key].getGeometry().coordinates;
+            
+            map.viewer.flyToPoint({
+                x: coords[0],
+                y: coords[1],
+                z: 2000,
+                pitch: -45,
+                yaw: 0,
+                duration: 1500
+            });
+            
+            // Open popup after fly
+            setTimeout(() => {
+                markers[key].openInfoWindow();
+            }, 1600);
+        };
+
+        window.changeColor = (key) => {
+            const marker = markers[key];
+            if (!marker) return;
+            
+            // Random color
+            const color = '#' + Math.floor(Math.random()*16777215).toString(16);
+            
+            const currentStyle = marker._style?.config || {};
+            
+            // Handle different marker types
+            if (currentStyle.type === 'basic-point') {
+                marker.setStyle({ ...currentStyle, color });
+            } else {
+                const newSize = Math.random() > 0.5 ? [48, 48] : [32, 32];
+                marker.setStyle({ ...currentStyle, size: newSize });
+            }
+        };
+    </script>
+</body>
+</html>

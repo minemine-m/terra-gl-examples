@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realistic Water</title>
+    <style>
+        html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #111; }
+        #map-container { width: 100%; height: 100%; }
+        .control-panel {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(30, 30, 30, 0.9);
+            padding: 15px;
+            border-radius: 8px;
+            color: white;
+            font-family: sans-serif;
+            border: 1px solid #444;
+            min-width: 200px;
+        }
+        .panel-title { margin: 0 0 10px 0; font-size: 16px; font-weight: bold; color: #0c99e5; }
+        .info-text { font-size: 14px; color: #ddd; line-height: 1.5; }
+    </style>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.150.1/build/three.module.js",
+                "@terra.gl/core": "https://unpkg.com/@terra.gl/core/dist/terra.gl.es.js"
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="map-container"></div>
+    <div class="control-panel">
+        <h3 class="panel-title">Realistic Water Effect</h3>
+        <div class="info-text">
+            Rendering water polygons with reflection, refraction, and normal maps.
+            <br><br>
+            Data: Water System GeoJSON
+        </div>
+    </div>
+
+    <script type="module">
+        import * as terra from '@terra.gl/core';
+
+        const osmSource = new terra.WMTSSource({
+            urlTemplate: "https://basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
+            minLevel: 0,
+            maxLevel: 19,
+            attribution: "Dark"
+        });
+        const baseLayer = new terra.WMTSTileLayer("base-layer", {
+            source: osmSource,
+            projection: terra.ProjectFactory.createFromID("3857", 0),
+            layerName: "dark-layer",
+            style: "default",
+            matrixSet: "EPSG:3857"
+        });
+
+        const map = new terra.Map(document.getElementById('map-container'), {
+            center: [113.5517, 34.7931, 2000],
+            zoom: 14,
+            viewer: {
+                antialias: true,
+                skybox: {
+                    path: "/image/skyboxall/onemap/",
+                    files: ["posx.jpg", "negx.jpg", "posy.jpg", "negy.jpg", "posz.jpg", "negz.jpg"],
+                    defaultColor: '#121E3A'
+                }
+            },
+            basemap: {
+                Baselayers: [baseLayer],
+                minLevel: 2,
+                maxLevel: 19
+            }
+        });
+
+        // Water Polygon Layer
+        const waterLayer = new terra.PolygonLayer('water-layer', { isSceneLayer: true, altitude: 1 });
+        map.addLayer(waterLayer);
+
+        fetch('/geojson/水系.json')
+            .then(res => res.json())
+            .then(data => {
+                data.features.forEach((feature) => {
+                    if (feature.geometry && feature.geometry.coordinates) {
+                        // Inject Z coordinate for water level
+                        const injectZ = (coords) => {
+                            if (typeof coords[0] === 'number') return [...coords, 1]; 
+                            return coords.map(injectZ);
+                        };
+                        feature.geometry.coordinates = injectZ(feature.geometry.coordinates);
+                    }
+
+                    const water = new terra.Polygon({
+                        geometry: feature.geometry,
+                        style: {
+                            type: 'base-water',
+                            normalMap: '/image/waternormals.jpg', // Ensure this exists in public/image
+                            color: '#0c99e5',
+                            sunColor: '#FF0597',
+                            opacity: 0.6
+                        }
+                    });
+                    water.addTo(waterLayer);
+                });
+            })
+            .catch(err => console.error("Error loading water data:", err));
+
+    </script>
+</body>
+</html>

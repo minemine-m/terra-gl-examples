@@ -162,18 +162,21 @@ const examples = computed(() => [
               <span class="truncate hidden sm:inline">{{ t('sidebar.subtitle') }}</span>
             </h1>
         </div>
-        <!-- Close button for mobile inside sidebar -->
-        <button class="md:hidden text-gray-400 hover:text-white" @click="closeSidebar">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
+
+        <div class="flex items-center gap-2">
+            <div class="hidden md:block">
+               <LanguageSwitcher />
+            </div>
+            <!-- Close button for mobile inside sidebar -->
+            <button class="md:hidden text-gray-400 hover:text-white" @click="closeSidebar">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+        </div>
       </div>
       <!-- Language Switcher moved below title on mobile if needed, or kept here -->
       <div class="mt-2 md:hidden">
-         <LanguageSwitcher />
-      </div>
-      <div class="hidden md:block absolute right-4 top-4">
          <LanguageSwitcher />
       </div>
     </div>

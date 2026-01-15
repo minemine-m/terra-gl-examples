@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI Components</title>
+    <style>
+        html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #111; }
+        #map-container { width: 100%; height: 100%; }
+        
+        /* Custom Marker Style */
+        .custom-marker {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            animation: bounce 1s infinite;
+            font-size: 30px;
+            cursor: pointer;
+            user-select: none;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.150.1/build/three.module.js",
+                "@terra.gl/core": "https://unpkg.com/@terra.gl/core/dist/terra.gl.es.js"
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="map-container"></div>
+
+    <script type="module">
+        import * as terra from '@terra.gl/core';
+
+        const osmSource = new terra.WMTSSource({
+            urlTemplate: "https://basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
+            minLevel: 0,
+            maxLevel: 19,
+            attribution: "Dark"
+        });
+        const baseLayer = new terra.WMTSTileLayer("base-layer", {
+            source: osmSource,
+            projection: terra.ProjectFactory.createFromID("3857", 0),
+            layerName: "dark-layer",
+            style: "default",
+            matrixSet: "EPSG:3857"
+        });
+
+        const map = new terra.Map(document.getElementById('map-container'), {
+            center: [113.6253, 34.7466, 2000],
+            zoom: 12,
+            viewer: {
+                antialias: true,
+                skybox: {
+                    path: "/image/skyboxall/onemap/",
+                    files: ["posx.jpg", "negx.jpg", "posy.jpg", "negy.jpg", "posz.jpg", "negz.jpg"],
+                    defaultColor: '#121E3A'
+                }
+            },
+            basemap: { Baselayers: [baseLayer], minLevel: 2, maxLevel: 19 }
+        });
+
+        // 1. Add InfoWindow
+        const infoWindow = new terra.InfoWindow({
+            title: "Zhengzhou",
+            content: "<div style='padding:10px;'>Capital of Henan Province<br/>A major transportation hub.</div>",
+            minWidth: 200
+        });
+        infoWindow.addTo(map);
+        infoWindow.open([113.6253, 34.7466, 2000]);
+
+        // 2. Add UIMarker (HTML Marker)
+        const markerEl = document.createElement('div');
+        markerEl.className = 'custom-marker';
+        markerEl.innerHTML = '📍';
+        markerEl.onclick = () => {
+            alert('You clicked the custom marker!');
+        };
+
+        const uiMarker = new terra.UIMarker([113.65, 34.75, 2000], {
+            content: markerEl,
+            alignment: 'bottom'
+        });
+        uiMarker.addTo(map);
+
+    </script>
+</body>
+</html>

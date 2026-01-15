@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terra-GL Layer Operations</title>
+    <style>
+        body { margin: 0; padding: 0; overflow: hidden; font-family: sans-serif; }
+        #map { width: 100vw; height: 100vh; background-color: #111827; }
+        
+        /* Control Panel Styles */
+        #control-panel {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 18rem;
+            background-color: rgba(31, 41, 55, 0.9); /* bg-gray-800 */
+            backdrop-filter: blur(4px);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            color: white;
+            border: 1px solid rgb(55, 65, 81); /* border-gray-700 */
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            color: white;
+            transition: background-color 0.2s;
+        }
+
+        .btn-add { background-color: #10b981; } /* emerald-500 */
+        .btn-add:hover { background-color: #059669; }
+
+        .btn-remove { background-color: #ef4444; } /* red-500 */
+        .btn-remove:hover { background-color: #dc2626; }
+
+        .btn-toggle { background-color: #3b82f6; } /* blue-500 */
+        .btn-toggle:hover { background-color: #2563eb; }
+
+        .log-container {
+            margin-top: 1rem;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 0.25rem;
+            padding: 0.5rem;
+            height: 150px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 0.875rem;
+        }
+
+        .log-entry {
+            margin-bottom: 0.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.25rem;
+        }
+        .log-entry:last-child { border-bottom: none; }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <!-- Control Panel -->
+    <div id="control-panel">
+        <h3 style="margin: 0 0 0.5rem 0; font-size: 1.125rem;">Layer Operations</h3>
+        
+        <button class="btn btn-add" onclick="addLayer()">Add Random Layer</button>
+        <button class="btn btn-remove" onclick="removeLastLayer()">Remove Last Layer</button>
+        <button class="btn btn-toggle" onclick="toggleVisibility()">Toggle Last Layer Visibility</button>
+
+        <div id="logs" class="log-container"></div>
+    </div>
+
+    <!-- Import Map -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.171.0/build/three.module.js",
+            "@terra.gl/core": "https://unpkg.com/@terra.gl/core@0.0.1-alpha.35/dist/index.js"
+        }
+    }
+    </script>
+
+    <script type="module">
+        import * as terra from '@terra.gl/core';
+
+        let map;
+        let layerCount = 0;
+        const logContainer = document.getElementById('logs');
+
+        function log(msg) {
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.textContent = \
