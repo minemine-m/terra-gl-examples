@@ -16,12 +16,16 @@ export interface DocGroup {
 }
 
 // We keep the glob to scan the file structure, but we will load content from static /reference folder
-const htmlModules = import.meta.glob('/src/docs/**/*.html', { query: '?url', import: 'default' });
+// const htmlModules = import.meta.glob('/src/docs/**/*.html', { query: '?url', import: 'default' });
+import rawDocsList from '../docs-list.json';
+
+// Normalize paths to ensure they start with /src/docs/ to match existing logic if needed
+const docsPaths = rawDocsList.map(p => p.startsWith('/') ? p : '/' + p);
 
 // Helper to convert src path to static public path
 const getStaticUrl = (srcPath: string) => {
     // /src/docs/classes/Name.html -> /reference/classes/Name.html
-    const relative = srcPath.replace('/src/docs/', '');
+    const relative = srcPath.replace(/^\/?src\/docs\//, '');
     // Handle base URL if app is deployed in subdirectory
     const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
     return `${base}reference/${relative}`;
@@ -35,7 +39,7 @@ export function useApiDocs() {
   const initDocs = async () => {
     const groups: Record<string, DocFile[]> = {};
 
-    for (const path of Object.keys(htmlModules)) {
+    for (const path of docsPaths) {
       // path example: /src/docs/classes/TileSystem.TileMap.html
       
       const match = path.match(/\/src\/docs\/([^/]+)\/(.+)\.html$/);
@@ -105,7 +109,7 @@ export function useApiDocs() {
     // Note: here 'file' is the filename without extension, e.g. TileSystem.TileMap
     // 'folder' is the physical folder, e.g. classes
     const path = `/src/docs/${folder}/${file}.html`;
-    if (htmlModules[path]) {
+    if (docsPaths.includes(path)) {
       return getStaticUrl(path);
     }
     throw new Error(`Document not found: ${path}`);
@@ -113,7 +117,7 @@ export function useApiDocs() {
 
   const getIntroductionUrl = async () => {
       const path = '/src/docs/index.html';
-      if (htmlModules[path]) {
+      if (docsPaths.includes(path)) {
           return getStaticUrl(path);
       }
       return null;
