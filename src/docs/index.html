@@ -1,0 +1,137 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="./"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Terra-GL API - v0.0.1-alpha.49</title><meta name="description" content="Documentation for Terra-GL API"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><link rel="stylesheet" href="assets/custom.css"/><script defer src="assets/main.js"></script><script async src="assets/icons.js" id="tsd-icons-script"></script><script async src="assets/search.js" id="tsd-search-script"></script><script async src="assets/navigation.js" id="tsd-nav-script"></script><script async src="assets/hierarchy.js" id="tsd-hierarchy-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><a href="index.html" class="title">Terra-GL API - v0.0.1-alpha.49</a><div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/><ul role="listbox" id="tsd-search-results"></ul><div id="tsd-search-status" aria-live="polite" aria-atomic="true"><div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><h1>Terra-GL API - v0.0.1-alpha.49</h1></div><div class="tsd-panel tsd-typography"><h1 id="terra-gl-core" class="tsd-anchor-link">Terra-GL Core<a href="#terra-gl-core" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h1><div align="center">
+<p><strong>High-Performance WebGL 3D Map Engine Based on Three.js 🌍</strong></p>
+<p><a href="https://www.npmjs.com/package/@terra.gl/core"><img src="https://img.shields.io/npm/v/@terra.gl/core.svg" alt="npm version"></a>
+<a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="License"></a></p>
+<p>English | <a href="media/README_CN.md">简体中文</a></p>
+</div>
+<hr>
+<h2 id="📖-introduction" class="tsd-anchor-link">📖 Introduction<a href="#📖-introduction" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Terra-GL Core is a modern WebGL 3D map engine built on Three.js. It provides complete GIS visualization capabilities, supporting tile map loading, vector feature rendering, 3D model display, and more. Perfect for building smart cities, digital twins, geographic information systems, and other applications.</p>
+<h3 id="✨-core-features" class="tsd-anchor-link">✨ Core Features<a href="#✨-core-features" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li>🚀 <strong>High-Performance Rendering</strong> - Built on Three.js WebGL engine, supports large-scale data visualization</li>
+<li>🗺️ <strong>Multi-Source Tile Support</strong> - Compatible with WMTS, ArcGIS, MapBox, Tianditu, and other mainstream tile services</li>
+<li>📐 <strong>Rich Feature Types</strong> - Supports points, lines, polygons, labels, models, and other geographic features</li>
+<li>🎨 <strong>Flexible Style System</strong> - Dynamic style configuration and theme switching</li>
+<li>🎯 <strong>Complete Event System</strong> - Rich event mechanisms for map interaction and feature events</li>
+<li>🛠️ <strong>Powerful Drawing Tools</strong> - Built-in drawing tools for interactive creation of points, lines, polygons, etc.</li>
+<li>🌈 <strong>3D Effect Enhancement</strong> - Supports skybox, shadows, HDR, clouds, and other visual effects</li>
+<li>📱 <strong>UI Component System</strong> - Provides info windows, tooltips, and other common UI components</li>
+<li>🔧 <strong>Collision Detection</strong> - Smart label avoidance for optimized dense feature display</li>
+<li>📦 <strong>Modular Design</strong> - Clear code structure, easy to extend and maintain</li>
+</ul>
+<hr>
+<h2 id="🌟-why-choose-terra-gl" class="tsd-anchor-link">🌟 Why Choose Terra-GL<a href="#🌟-why-choose-terra-gl" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><h3 id="💪-technical-advantages" class="tsd-anchor-link">💪 Technical Advantages<a href="#💪-technical-advantages" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><p><strong>1. Native Three.js Architecture</strong></p>
+<ul>
+<li>Fully built on Three.js with no additional rendering layer abstraction</li>
+<li>Direct access to Three.js scene objects for free extension</li>
+<li>Full utilization of WebGL performance advantages</li>
+<li>Seamless integration with Three.js ecosystem</li>
+</ul>
+<p><strong>2. Professional GIS Capabilities</strong></p>
+<ul>
+<li>Support for multiple coordinate systems and projection transformations (Web Mercator, WGS84, etc.)</li>
+<li>Complete tile map system supporting massive data loading</li>
+<li>Compatible with mainstream map services (WMTS, ArcGIS, MapBox, Tianditu)</li>
+<li>Vector tile (MVT) rendering support</li>
+</ul>
+<p><strong>3. Rich Visualization Capabilities</strong></p>
+<ul>
+<li>Unified management of 2D vector features (points, lines, polygons) and 3D models</li>
+<li>GLTF/GLB model loading with Draco compression</li>
+<li>Real-time shadows, HDR environment lighting, post-processing effects</li>
+<li>Particle clouds, water ripples, and other special effects support</li>
+</ul>
+<p><strong>4. Flexible Interactive Experience</strong></p>
+<ul>
+<li>Complete event system (map events, feature events)</li>
+<li>Built-in drawing tools supporting points, lines, polygons, circles, etc.</li>
+<li>Smart collision detection and label avoidance</li>
+<li>Info windows, tooltips, and other UI components</li>
+</ul>
+<p><strong>5. Developer Friendly</strong></p>
+<ul>
+<li>Written in TypeScript with complete type definitions</li>
+<li>Clear modular design, easy to understand and extend</li>
+<li>Rich examples and documentation</li>
+<li>Supports both ES Module and UMD module formats</li>
+</ul>
+<h3 id="💡-use-cases" class="tsd-anchor-link">💡 Use Cases<a href="#💡-use-cases" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Typical Applications</th>
+<th>Core Capabilities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>🏙️ Smart City</strong></td>
+<td>Urban 3D modeling, BIM display, planning comparison</td>
+<td>Large-scale model rendering, LOD control, layer management</td>
+</tr>
+<tr>
+<td><strong>🔮 Digital Twin</strong></td>
+<td>Industrial parks, smart buildings, equipment monitoring</td>
+<td>Real-time data binding, dynamic updates, state visualization</td>
+</tr>
+<tr>
+<td><strong>🗺️ GIS</strong></td>
+<td>Terrain analysis, resource distribution, pipeline management</td>
+<td>Coordinate conversion, spatial query, buffer analysis</td>
+</tr>
+<tr>
+<td><strong>🚨 Emergency Command</strong></td>
+<td>Situation display, resource scheduling, route planning</td>
+<td>Real-time tracking, heatmaps, dynamic plotting</td>
+</tr>
+</tbody>
+</table>
+<h3 id="⚡-performance-features" class="tsd-anchor-link">⚡ Performance Features<a href="#⚡-performance-features" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li><strong>On-Demand Tile Loading</strong> - Dynamically loads tiles based on viewport, supports tens of thousands of square kilometers of data</li>
+<li><strong>LOD Level Control</strong> - Automatically switches model detail based on distance, optimizing rendering performance</li>
+<li><strong>Quadtree Spatial Indexing</strong> - Fast query of visible features, improving interaction response speed</li>
+<li><strong>WebGL Instanced Rendering</strong> - Batch drawing of identical geometries, reducing draw calls</li>
+<li><strong>Collision Avoidance Optimization</strong> - Intelligently hides overlapping labels, keeping interface clean</li>
+</ul>
+<hr>
+<h2 id="📚-core-module-overview" class="tsd-anchor-link">📚 Core Module Overview<a href="#📚-core-module-overview" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><h3 id="🏗️-core-architecture" class="tsd-anchor-link">🏗️ Core Architecture<a href="#🏗️-core-architecture" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li><strong>🗺️ Map</strong> - Map container, unified management of layers, views, events</li>
+<li><strong>👁️ Viewer</strong> - Three.js-based rendering engine, manages scenes, cameras, lighting</li>
+<li><strong>📚 Layer System</strong> - Layered management of tiles, vectors, models, and other data</li>
+<li><strong>📍 Feature</strong> - Abstraction of geographic elements such as points, lines, polygons, models</li>
+<li><strong>🔲 TileSystem</strong> - Dynamic loading system supporting multi-source tiles like WMTS, ArcGIS</li>
+</ul>
+<h3 id="🔑-key-features" class="tsd-anchor-link">🔑 Key Features<a href="#🔑-key-features" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li><strong>⚡ Event System</strong> - Complete map/feature-level event mechanism</li>
+<li><strong>✏️ Drawing Tools</strong> - Built-in interactive drawing (points, lines, polygons, circles, etc.)</li>
+<li><strong>🎨 UI Components</strong> - InfoWindow, ToolTip, and other common components</li>
+<li><strong>🎯 Collision Detection</strong> - Smart label avoidance, optimized dense scene display</li>
+<li><strong>🎭 Style System</strong> - Unified vector/model style configuration</li>
+</ul>
+<p><a href="link-to-detailed-docs">View Detailed API Documentation →</a></p>
+<hr>
+<h2 id="🚀-quick-start" class="tsd-anchor-link">🚀 Quick Start<a href="#🚀-quick-start" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><h3 id="📦-installation" class="tsd-anchor-link">📦 Installation<a href="#📦-installation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><pre><code class="bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">install</span><span class="hl-1"> </span><span class="hl-2">@terra.gl/core</span><span class="hl-1"> </span><span class="hl-2">three@^0.171.0</span>
+</code><button type="button">Copy</button></pre>
+
+<h3 id="⚡-5-minute-guide" class="tsd-anchor-link">⚡ 5-Minute Guide<a href="#⚡-5-minute-guide" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><pre><code class="javascript"><span class="hl-3">import</span><span class="hl-1"> </span><span class="hl-4">*</span><span class="hl-1"> </span><span class="hl-3">as</span><span class="hl-1"> </span><span class="hl-5">terra</span><span class="hl-1"> </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;@terra.gl/core&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-6">// Create map</span><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-7">map</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-5">terra</span><span class="hl-1">.</span><span class="hl-0">Map</span><span class="hl-1">(</span><span class="hl-2">&#39;#map&#39;</span><span class="hl-1">, {</span><br/><span class="hl-1">    </span><span class="hl-5">center:</span><span class="hl-1"> [</span><span class="hl-8">116.397428</span><span class="hl-1">, </span><span class="hl-8">39.90923</span><span class="hl-1">, </span><span class="hl-8">1000</span><span class="hl-1">],  </span><span class="hl-6">// [longitude, latitude, camera height]</span><br/><span class="hl-1">    </span><span class="hl-5">basemap:</span><span class="hl-1"> {</span><br/><span class="hl-1">        </span><span class="hl-5">Baselayers:</span><span class="hl-1"> [</span><br/><span class="hl-1">            </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-5">terra</span><span class="hl-1">.</span><span class="hl-0">WMTSTileLayer</span><span class="hl-1">(</span><span class="hl-2">&#39;base&#39;</span><span class="hl-1">, {</span><br/><span class="hl-1">                </span><span class="hl-5">source:</span><span class="hl-1"> </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-5">terra</span><span class="hl-1">.</span><span class="hl-0">WMTSSource</span><span class="hl-1">({</span><br/><span class="hl-1">                    </span><span class="hl-5">urlTemplate:</span><span class="hl-1"> </span><span class="hl-2">&#39;https://tile.openstreetmap.org/{z}/{x}/{y}.png&#39;</span><br/><span class="hl-1">                }),</span><br/><span class="hl-1">                </span><span class="hl-5">projection:</span><span class="hl-1"> </span><span class="hl-5">terra</span><span class="hl-1">.</span><span class="hl-5">ProjectFactory</span><span class="hl-1">.</span><span class="hl-0">createFromID</span><span class="hl-1">(</span><span class="hl-2">&#39;3857&#39;</span><span class="hl-1">, </span><span class="hl-8">0</span><span class="hl-1">)</span><br/><span class="hl-1">            })</span><br/><span class="hl-1">        ],</span><br/><span class="hl-1">        </span><span class="hl-5">minLevel:</span><span class="hl-1"> </span><span class="hl-8">1</span><span class="hl-1">,</span><br/><span class="hl-1">        </span><span class="hl-5">maxLevel:</span><span class="hl-1"> </span><span class="hl-8">18</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">});</span><br/><br/><span class="hl-6">// Add label</span><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-7">label</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-5">terra</span><span class="hl-1">.</span><span class="hl-0">Label</span><span class="hl-1">({</span><br/><span class="hl-1">    </span><span class="hl-5">geometry:</span><span class="hl-1"> { </span><span class="hl-5">type:</span><span class="hl-1"> </span><span class="hl-2">&#39;Point&#39;</span><span class="hl-1">, </span><span class="hl-5">coordinates:</span><span class="hl-1"> [</span><span class="hl-8">116.397428</span><span class="hl-1">, </span><span class="hl-8">39.90923</span><span class="hl-1">, </span><span class="hl-8">0</span><span class="hl-1">] },</span><br/><span class="hl-1">    </span><span class="hl-5">style:</span><span class="hl-1"> { </span><span class="hl-5">text:</span><span class="hl-1"> </span><span class="hl-2">&#39;Tiananmen Square&#39;</span><span class="hl-1">, </span><span class="hl-5">fontSize:</span><span class="hl-1"> </span><span class="hl-8">16</span><span class="hl-1">, </span><span class="hl-5">fontColor:</span><span class="hl-1"> </span><span class="hl-2">&#39;#ffffff&#39;</span><span class="hl-1"> }</span><br/><span class="hl-1">});</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-7">pointLayer</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-5">terra</span><span class="hl-1">.</span><span class="hl-0">PointLayer</span><span class="hl-1">(</span><span class="hl-2">&#39;points&#39;</span><span class="hl-1">);</span><br/><span class="hl-5">map</span><span class="hl-1">.</span><span class="hl-0">addLayer</span><span class="hl-1">(</span><span class="hl-5">pointLayer</span><span class="hl-1">);</span><br/><span class="hl-5">label</span><span class="hl-1">.</span><span class="hl-0">addTo</span><span class="hl-1">(</span><span class="hl-5">pointLayer</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+<p>See the <code>example/</code> directory for more examples.</p>
+<hr>
+<h2 id="🔧-development" class="tsd-anchor-link">🔧 Development<a href="#🔧-development" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><h3 id="🔨-build" class="tsd-anchor-link">🔨 Build<a href="#🔨-build" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><pre><code class="bash"><span class="hl-6"># Development mode (watch file changes)</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">dev</span><br/><br/><span class="hl-6"># Production build</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">build</span><br/><br/><span class="hl-6"># Generate API documentation</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">doc</span>
+</code><button type="button">Copy</button></pre>
+
+<h3 id="📂-project-structure" class="tsd-anchor-link">📂 Project Structure<a href="#📂-project-structure" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><pre><code><span class="hl-5">packages</span><span class="hl-1">/</span><span class="hl-5">core</span><span class="hl-1">/</span><br/><span class="hl-1">├── </span><span class="hl-5">src</span><span class="hl-1">/                # </span><span class="hl-5">Source</span><span class="hl-1"> </span><span class="hl-5">code</span><br/><span class="hl-1">├── </span><span class="hl-5">dist</span><span class="hl-1">/               # </span><span class="hl-5">Compiled</span><span class="hl-1"> </span><span class="hl-5">output</span><br/><span class="hl-1">├── </span><span class="hl-5">docs</span><span class="hl-1">/               # </span><span class="hl-7">API</span><span class="hl-1"> </span><span class="hl-5">documentation</span><br/><span class="hl-1">├── </span><span class="hl-5">assets</span><span class="hl-1">/             # </span><span class="hl-5">Asset</span><span class="hl-1"> </span><span class="hl-5">files</span><br/><span class="hl-1">├── </span><span class="hl-5">package</span><span class="hl-1">.</span><span class="hl-5">json</span><span class="hl-1">        # </span><span class="hl-5">Package</span><span class="hl-1"> </span><span class="hl-5">configuration</span><br/><span class="hl-1">├── </span><span class="hl-5">tsconfig</span><span class="hl-1">.</span><span class="hl-5">json</span><span class="hl-1">       # </span><span class="hl-5">TypeScript</span><span class="hl-1"> </span><span class="hl-5">configuration</span><br/><span class="hl-1">├── </span><span class="hl-5">vite</span><span class="hl-1">.</span><span class="hl-5">config</span><span class="hl-1">.</span><span class="hl-5">ts</span><span class="hl-1">      # </span><span class="hl-5">Vite</span><span class="hl-1"> </span><span class="hl-5">build</span><span class="hl-1"> </span><span class="hl-5">configuration</span><br/><span class="hl-1">└── </span><span class="hl-5">typedoc</span><span class="hl-1">.</span><span class="hl-5">json</span><span class="hl-1">        # </span><span class="hl-5">Documentation</span><span class="hl-1"> </span><span class="hl-5">generation</span><span class="hl-1"> </span><span class="hl-5">configuration</span>
+</code><button>Copy</button></pre>
+
+<h2 id="🤝-contributing" class="tsd-anchor-link">🤝 Contributing<a href="#🤝-contributing" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Issues and Pull Requests are welcome!</p>
+<hr>
+<h2 id="🔗-related-links" class="tsd-anchor-link">🔗 Related Links<a href="#🔗-related-links" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><ul>
+<li><a href="https://threejs.org/">Three.js Official Website</a>\</li>
+<li><a href="https://geojson.org/">GeoJSON Specification</a></li>
+<li><a href="https://www.ogc.org/standards/wmts">WMTS Standard</a></li>
+</ul>
+<!-- - [three-tile Website](https://sxguojf.github.io/three-tile-doc/1.introduce/01.whatIs/) -->
+<hr>
+<div align="center">
+<p><strong>If this project helps you, please give it a ⭐️ Star!</strong></p>
+</div></div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#terra-gl-core"><span>Terra-<wbr/>GL <wbr/>Core</span></a><ul><li><a href="#📖-introduction"><span>📖 <wbr/>Introduction</span></a></li><li><ul><li><a href="#✨-core-features"><span>✨ <wbr/>Core <wbr/>Features</span></a></li></ul></li><li><a href="#🌟-why-choose-terra-gl"><span>🌟 <wbr/>Why <wbr/>Choose <wbr/>Terra-<wbr/>GL</span></a></li><li><ul><li><a href="#💪-technical-advantages"><span>💪 <wbr/>Technical <wbr/>Advantages</span></a></li><li><a href="#💡-use-cases"><span>💡 <wbr/>Use <wbr/>Cases</span></a></li><li><a href="#⚡-performance-features"><span>⚡ <wbr/>Performance <wbr/>Features</span></a></li></ul></li><li><a href="#📚-core-module-overview"><span>📚 <wbr/>Core <wbr/>Module <wbr/>Overview</span></a></li><li><ul><li><a href="#🏗️-core-architecture"><span>🏗️ <wbr/>Core <wbr/>Architecture</span></a></li><li><a href="#🔑-key-features"><span>🔑 <wbr/>Key <wbr/>Features</span></a></li></ul></li><li><a href="#🚀-quick-start"><span>🚀 <wbr/>Quick <wbr/>Start</span></a></li><li><ul><li><a href="#📦-installation"><span>📦 <wbr/>Installation</span></a></li><li><a href="#⚡-5-minute-guide"><span>⚡ 5-<wbr/>Minute <wbr/>Guide</span></a></li></ul></li><li><a href="#🔧-development"><span>🔧 <wbr/>Development</span></a></li><li><ul><li><a href="#🔨-build"><span>🔨 <wbr/>Build</span></a></li><li><a href="#📂-project-structure"><span>📂 <wbr/>Project <wbr/>Structure</span></a></li></ul></li><li><a href="#🤝-contributing"><span>🤝 <wbr/>Contributing</span></a></li><li><a href="#🔗-related-links"><span>🔗 <wbr/>Related <wbr/>Links</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="modules.html">Terra-GL API - v0.0.1-alpha.49</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>

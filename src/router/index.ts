@@ -22,12 +22,53 @@ import LayerOperationsExampleWrapper from '../examples/LayerOperationsExampleWra
 import LayerPropertiesExampleWrapper from '../examples/LayerPropertiesExampleWrapper.vue'
 import LabelExampleWrapper from '../examples/LabelExampleWrapper.vue'
 import ZhengzhouNightWrapper from '../examples/ZhengzhouNightWrapper.vue'
+import DocsLayout from '../layouts/DocsLayout.vue'
+import Introduction from '../pages/Docs/Introduction.vue'
+import GettingStarted from '../pages/Docs/GettingStarted.vue'
+import CoreConcepts from '../pages/Docs/CoreConcepts.vue'
+import ApiReference from '../pages/Docs/ApiReference.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'home',
     component: LandingPage
+  },
+  {
+    path: '/docs',
+    component: DocsLayout,
+    children: [
+      {
+        path: '',
+        redirect: '/docs/introduction'
+      },
+      {
+        path: 'introduction',
+        name: 'docs-introduction',
+        component: Introduction
+      },
+      {
+        path: 'getting-started',
+        name: 'docs-getting-started',
+        component: GettingStarted
+      },
+      {
+        path: 'core-concepts',
+        name: 'docs-core-concepts',
+        component: CoreConcepts
+      },
+      {
+        path: ':category/:file',
+        name: 'docs-api-item',
+        component: ApiReference,
+        props: true
+      },
+      // Fallback for /docs/api without name -> maybe redirect to first item or intro?
+      {
+        path: 'api',
+        redirect: '/docs/introduction'
+      }
+    ]
   },
   {
     path: '/gallery',

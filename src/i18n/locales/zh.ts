@@ -1,7 +1,20 @@
 export default {
   nav: {
     home: '首页',
-    examples: '示例'
+    examples: '示例',
+    docs: '文档'
+  },
+  docs: {
+    title: '文档中心',
+    categories: {
+      guide: '开发指南',
+      api: '参考手册'
+    },
+    items: {
+      introduction: '介绍',
+      gettingStarted: '快速上手',
+      coreConcepts: '核心概念'
+    }
   },
   home: {
     title: 'Terra-GL',

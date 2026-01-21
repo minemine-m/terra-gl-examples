@@ -1,7 +1,20 @@
 export default {
   nav: {
     home: 'Home',
-    examples: 'Examples'
+    examples: 'Examples',
+    docs: 'Documentation'
+  },
+  docs: {
+    title: 'Documentation',
+    categories: {
+      guide: 'Guide',
+      api: 'API Reference'
+    },
+    items: {
+      introduction: 'Introduction',
+      gettingStarted: 'Getting Started',
+      coreConcepts: 'Core Concepts'
+    }
   },
   home: {
     title: 'Terra-GL',

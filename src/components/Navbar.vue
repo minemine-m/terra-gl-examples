@@ -6,7 +6,10 @@ import { useRoute } from 'vue-router';
 const { t } = useI18n();
 const route = useRoute();
 
-const isActive = (path: string) => route.path === path;
+const isActive = (path: string) => {
+  if (path === '/') return route.path === '/';
+  return route.path.startsWith(path);
+};
 </script>
 
 <template>
@@ -30,9 +33,16 @@ const isActive = (path: string) => route.path === path;
           {{ t('nav.home') }}
         </router-link>
         <router-link 
+          to="/docs" 
+          class="text-sm font-medium transition-colors"
+          :class="isActive('/docs') ? 'text-blue-400' : 'text-gray-300 hover:text-white'"
+        >
+          {{ t('nav.docs') }}
+        </router-link>
+        <router-link 
           to="/examples/basic-map" 
           class="text-sm font-medium transition-colors"
-          :class="isActive('/examples/basic-map') || isActive('/gallery') ? 'text-blue-400' : 'text-gray-300 hover:text-white'"
+          :class="isActive('/examples') || isActive('/gallery') ? 'text-blue-400' : 'text-gray-300 hover:text-white'"
         >
           {{ t('nav.examples') }}
         </router-link>
