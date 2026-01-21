@@ -15,8 +15,17 @@ export interface DocGroup {
   items: DocFile[];
 }
 
-// Use Vite's glob import to get all HTML files in src/docs
-const htmlModules = import.meta.glob('/src/docs/**/*.html', { as: 'url' });
+// We keep the glob to scan the file structure, but we will load content from static /reference folder
+const htmlModules = import.meta.glob('/src/docs/**/*.html', { query: '?url', import: 'default' });
+
+// Helper to convert src path to static public path
+const getStaticUrl = (srcPath: string) => {
+    // /src/docs/classes/Name.html -> /reference/classes/Name.html
+    const relative = srcPath.replace('/src/docs/', '');
+    // Handle base URL if app is deployed in subdirectory
+    const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+    return `${base}reference/${relative}`;
+};
 
 export function useApiDocs() {
   const docs = ref<DocGroup[]>([]);
@@ -59,8 +68,7 @@ export function useApiDocs() {
           category,
           kind: folder, // classes, interfaces, functions, etc.
           load: async () => {
-             const modulePath = await htmlModules[path]();
-             return modulePath;
+             return getStaticUrl(path);
           }
         };
 
@@ -98,7 +106,7 @@ export function useApiDocs() {
     // 'folder' is the physical folder, e.g. classes
     const path = `/src/docs/${folder}/${file}.html`;
     if (htmlModules[path]) {
-      return await htmlModules[path]();
+      return getStaticUrl(path);
     }
     throw new Error(`Document not found: ${path}`);
   };
@@ -106,7 +114,7 @@ export function useApiDocs() {
   const getIntroductionUrl = async () => {
       const path = '/src/docs/index.html';
       if (htmlModules[path]) {
-          return await htmlModules[path]();
+          return getStaticUrl(path);
       }
       return null;
   };
