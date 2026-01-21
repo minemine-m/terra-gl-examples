@@ -93,7 +93,7 @@ onMounted(() => {
         feature.addTo(polygonLayer);
       } else if (feature instanceof terra.LineString && lineLayer) {
         feature.addTo(lineLayer);
-      } else if ((feature instanceof terra.Maker) && pointLayer) {
+      } else if ((feature instanceof terra.Marker) && pointLayer) {
         feature.addTo(pointLayer);
       } else {
         // Fallback: try to guess from geometry type string if available

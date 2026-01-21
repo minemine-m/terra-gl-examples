@@ -49,7 +49,7 @@ onMounted(() => {
   map.addLayer(markerLayer);
 
   // 3. Create Marker
-  const marker = new terra.Maker({
+  const marker = new terra.Marker({
     geometry: {
       type: 'Point',
       coordinates: [116.405467, 39.907761]

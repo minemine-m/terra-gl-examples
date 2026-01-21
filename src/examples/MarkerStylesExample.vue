@@ -8,7 +8,7 @@ const mapContainer = ref<HTMLElement | null>(null);
 let map: terra.Map | null = null;
 let markerLayer: terra.PointLayer | null = null;
 // ... (rest of the script)Store markers for controls
-const markers: Record<string, terra.Maker> = {};
+const markers: Record<string, terra.Marker> = {};
 
 const flyToMarker = (key: string) => {
   if (!map || !markers[key]) return;
@@ -91,7 +91,7 @@ onMounted(() => {
   map.addLayer(markerLayer);
 
   // 1. Icon Point
-  const iconMarker = new terra.Maker({
+  const iconMarker = new terra.Marker({
     geometry: { type: 'Point', coordinates: [116.35, 39.90] },
     style: {
       type: 'icon-point',
@@ -105,7 +105,7 @@ onMounted(() => {
   markers['icon'] = iconMarker;
   
   // 2. Basic Point (Circle)
-  const circleMarker = new terra.Maker({
+  const circleMarker = new terra.Marker({
     geometry: { type: 'Point', coordinates: [116.40, 39.90] },
     style: {
       type: 'basic-point',
@@ -120,7 +120,7 @@ onMounted(() => {
   markers['circle'] = circleMarker;
 
   // 3. Blue Point
-  const blueMarker = new terra.Maker({
+  const blueMarker = new terra.Marker({
     geometry: { type: 'Point', coordinates: [116.45, 39.90] },
     style: {
       type: 'basic-point',

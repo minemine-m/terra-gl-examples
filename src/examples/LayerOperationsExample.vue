@@ -25,7 +25,7 @@ const addLayer = () => {
   const lat = 39.90 + (Math.random() - 0.5) * 0.1;
   const lng = 116.40 + (Math.random() - 0.5) * 0.1;
   
-  const point = new terra.Maker({
+  const point = new terra.Marker({
     geometry: { type: 'Point', coordinates: [lng, lat] },
     style: {
       type: 'basic-point',

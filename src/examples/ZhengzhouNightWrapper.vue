@@ -275,7 +275,7 @@ function loadgeojsonpoint(url: string, icon: string, layername: string) {
           feature.geometry.coordinates = [...feature.geometry.coordinates, 1];
         }
 
-        let featurepoint = new terra.Maker({
+        let featurepoint = new terra.Marker({
           geometry: feature.geometry,
           style: {
             type: 'icon-point',

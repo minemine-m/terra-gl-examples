@@ -119,7 +119,7 @@ onMounted(() => {
   currentLabel.addTo(labelLayer);
   
   // Add a marker to show the anchor point
-  const anchorMarker = new terra.Maker({
+  const anchorMarker = new terra.Marker({
     geometry: { type: 'Point', coordinates: [116.397428, 39.90923, 0] },
     style: {
       type: 'basic-point',

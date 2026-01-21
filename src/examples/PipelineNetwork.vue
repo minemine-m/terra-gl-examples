@@ -83,7 +83,7 @@ onMounted(() => {
             feature.geometry.coordinates = [...feature.geometry.coordinates, 1];
          }
          
-         const valve = new terra.Maker({
+         const valve = new terra.Marker({
            geometry: feature.geometry,
            style: {
              type: 'icon-point',
